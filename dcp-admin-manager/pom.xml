@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.dcp</groupId>
+        <artifactId>dcp-admin</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>dcp-admin-manager</artifactId>
+    <name>dcp-admin-manager</name>
+    <description>服务管理层：业务服务、数据转换、外部调用封装</description>
+
+    <dependencies>
+        <!-- 依赖 dao 模块 -->
+        <dependency>
+            <groupId>com.dcp</groupId>
+            <artifactId>dcp-admin-dao</artifactId>
+        </dependency>
+
+        <!-- 依赖 common 模块 -->
+        <dependency>
+            <groupId>com.dcp</groupId>
+            <artifactId>dcp-admin-common</artifactId>
+        </dependency>
+
+        <!-- 依赖 rbac 模块 -->
+        <dependency>
+            <groupId>com.dcp</groupId>
+            <artifactId>dcp-admin-rbac</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot WebSocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- FastJSON2 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- Jackson Java 8 日期时间支持 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+    </dependencies>
+</project>

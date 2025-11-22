@@ -1,0 +1,51 @@
+# Maven 构建目录
+target/
+*/target/
+
+# IDEA 配置
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse 配置
+.project
+.classpath
+.settings/
+
+# VS Code 配置
+.vscode/
+
+# 日志文件
+logs/
+*.log
+
+# 上传文件
+uploads/
+
+# Git 相关
+.git/
+.gitignore
+.gitattributes
+
+# Docker 相关
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# 文档
+*.md
+HELP.md
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS 相关
+.DS_Store
+Thumbs.db
+
+# Node modules (如果有前端)
+node_modules/

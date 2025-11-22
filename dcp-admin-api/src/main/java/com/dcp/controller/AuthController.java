@@ -1,0 +1,124 @@
+package com.dcp.controller;
+
+import com.dcp.common.Result;
+import com.dcp.common.context.UserContextHolder;
+import com.dcp.common.vo.LoginResponseVO;
+import com.dcp.rbac.vo.SysUserProfileVO;
+import com.dcp.service.IAuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
+
+/**
+ * 认证控制器
+ *
+ * Controller层职责：
+ * 1. 接收HTTP请求
+ * 2. 参数验证（基础验证）
+ * 3. 调用Service层处理业务逻辑
+ * 4. 返回统一的响应结果
+ *
+ * @author DCP Team
+ * @since 2024-12-20
+ */
+@Tag(name = "认证管理", description = "用户认证相关接口")
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+@Slf4j
+public class AuthController {
+
+    private final IAuthService authService;
+
+    @Operation(summary = "用户登录")
+    @PostMapping("/login")
+    public Result<LoginResponseVO> login(@RequestBody Map<String, String> loginData) {
+        try {
+            // 兼容前端：同时支持 email 和 username 字段
+            String email = loginData.get("email");
+            if (email == null || email.isEmpty()) {
+                email = loginData.get("username");
+            }
+            String password = loginData.get("password");
+
+            log.info("[用户登录] 邮箱: {}", email);
+            LoginResponseVO response = authService.login(email, password);
+            log.info("[用户登录] 成功");
+            return Result.success(response);
+        } catch (Exception e) {
+            log.error("[用户登录] 失败，失败原因：{}", e.getMessage(), e);
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "用户登出")
+    @PostMapping("/logout")
+    public Result<Void> logout() {
+        // TODO: 实现登出逻辑，清除token
+        return Result.success();
+    }
+//
+//    @Operation(summary = "获取当前用户信息")
+//    @GetMapping("/userinfo")
+//    public Result<UserVO> getUserInfo() {
+//        // TODO: 从token中获取当前用户信息
+//        User user = userService.getById(1L);
+//        UserVO userVO = BeanConverter.convert(user, UserVO::new);
+//        return Result.success(userVO);
+//    }
+
+    @Operation(summary = "获取用户权限信息")
+    @GetMapping("/profile")
+    public Result<SysUserProfileVO> getProfile() {
+        try {
+            // 从 ThreadLocal 获取当前用户信息
+            Long userId = UserContextHolder.getUserId();
+
+            log.info("[获取用户权限信息] 用户ID: {}", userId);
+            SysUserProfileVO profile = authService.getUserProfile(userId);
+            log.info("[获取用户权限信息] 成功");
+            return Result.success(profile);
+        } catch (Exception e) {
+            log.error("[获取用户权限信息] 失败，失败原因：{}", e.getMessage(), e);
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "发送邮箱验证码")
+    @PostMapping("/send-code")
+    public Result<Void> sendVerificationCode(@RequestBody Map<String, String> request) {
+        try {
+            String email = request.get("email");
+
+            log.info("[发送验证码] 邮箱: {}", email);
+            authService.sendVerificationCode(email);
+            log.info("[发送验证码] 成功");
+            return Result.success();
+        } catch (Exception e) {
+            log.error("[发送验证码] 失败，失败原因：{}", e.getMessage(), e);
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @Operation(summary = "用户注册")
+    @PostMapping("/register")
+    public Result<Void> register(@RequestBody Map<String, String> request) {
+        try {
+            String email = request.get("email");
+            String code = request.get("code");
+            String password = request.get("password");
+
+            log.info("[用户注册] 邮箱: {}", email);
+            authService.register(email, code, password);
+            log.info("[用户注册] 成功");
+            return Result.success();
+        } catch (Exception e) {
+            log.error("[用户注册] 失败，失败原因：{}", e.getMessage(), e);
+            return Result.error(e.getMessage());
+        }
+    }
+}

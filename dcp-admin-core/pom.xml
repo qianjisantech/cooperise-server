@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.dcp</groupId>
+        <artifactId>dcp-admin</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>dcp-admin-core</artifactId>
+    <name>dcp-admin-core</name>
+    <description>核心业务逻辑层：业务编排、流程控制、消息处理</description>
+
+    <dependencies>
+        <!-- 依赖 manager 模块 -->
+        <dependency>
+            <groupId>com.dcp</groupId>
+            <artifactId>dcp-admin-manager</artifactId>
+        </dependency>
+
+        <!-- 依赖 common 模块 -->
+        <dependency>
+            <groupId>com.dcp</groupId>
+            <artifactId>dcp-admin-common</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter AOP (for AspectJ) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Redis (if needed for cache) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+</project>

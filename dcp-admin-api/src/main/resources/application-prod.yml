@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    #  rm-uf6vr2e018e95e4hz6o.mysql.rds.aliyuncs.com rm-uf6vr2e018e95e4hz.mysql.rds.aliyuncs.com
+    url: jdbc:mysql://rm-uf6vr2e018e95e4hz6o.mysql.rds.aliyuncs.com:3306/dcp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: Sy122812
+
+logging:
+  level:
+    root: WARN
+    com.dcp: INFO
