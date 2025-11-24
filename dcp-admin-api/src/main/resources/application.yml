@@ -28,7 +28,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #  rm-uf6vr2e018e95e4hz6o.mysql.rds.aliyuncs.com  外网rm-uf6vr2e018e95e4hz.mysql.rds.aliyuncs.com
+    #  内网rm-uf6vr2e018e95e4hz6o.mysql.rds.aliyuncs.com  外网rm-uf6vr2e018e95e4hz.mysql.rds.aliyuncs.com
     url: jdbc:mysql://rm-uf6vr2e018e95e4hz6o.mysql.rds.aliyuncs.com:3306/dcp?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: Sy122812
