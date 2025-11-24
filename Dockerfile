@@ -2,14 +2,15 @@
 # DCP Admin 项目 Dockerfile
 # ================================
 # 多阶段构建，减小最终镜像体积
+# 支持多架构: linux/amd64 和 linux/arm64
 # Stage 1: 构建阶段（使用 Maven 构建）
 # Stage 2: 运行阶段（使用 Alpine + JRE 21）
 
 # ================================
 # Stage 1: 构建阶段
 # ================================
-# 选择构建用基础镜像，使用 Maven 3.9.5 + JDK 21
-FROM maven:3.9.5-eclipse-temurin-21 AS build
+# 选择构建用基础镜像，使用 Maven 3.9.5 + JDK 21（支持多架构）
+FROM --platform=$BUILDPLATFORM maven:3.9.5-eclipse-temurin-21 AS build
 
 # 指定构建过程中的工作目录
 WORKDIR /app
@@ -48,7 +49,7 @@ RUN mvn -f /app/pom.xml clean package -DskipTests -B
 # ================================
 # Stage 2: 运行阶段
 # ================================
-# 选择运行时基础镜像，使用 Eclipse Temurin JRE 21 官方镜像
+# 选择运行时基础镜像，使用 Eclipse Temurin JRE 21 官方镜像（自动适配架构）
 FROM eclipse-temurin:21-jre-alpine
 
 # 安装必要的工具（curl 用于健康检查）
