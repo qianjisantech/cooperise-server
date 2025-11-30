@@ -18,3 +18,4 @@ POST {{baseUrl}}/api/example/login
 ### 发送验证码限流示例（使用配置文件预设值，每个IP每天最多发送10次）
 POST {{baseUrl}}/api/example/send-code
 
+

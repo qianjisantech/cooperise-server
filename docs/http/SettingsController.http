@@ -70,3 +70,4 @@ Authorization: Bearer {{token}}
 PUT {{baseUrl}}/settings/security/two-factor?enabled=true
 Authorization: Bearer {{token}}
 
+

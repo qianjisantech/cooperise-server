@@ -51,3 +51,4 @@ Authorization: Bearer {{token}}
 POST {{baseUrl}}/announcement/mark-read/1
 Authorization: Bearer {{token}}
 
+

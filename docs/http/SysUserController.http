@@ -51,3 +51,4 @@ Authorization: Bearer {{token}}
 DELETE {{baseUrl}}/rbac/user/1
 Authorization: Bearer {{token}}
 
+

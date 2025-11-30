@@ -49,3 +49,4 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/space/owner/1
 Authorization: Bearer {{token}}
 
+

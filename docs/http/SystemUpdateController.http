@@ -38,3 +38,4 @@ GET {{baseUrl}}/feedback/system-update/published
 ### 分页查询系统更新列表
 GET {{baseUrl}}/feedback/system-update/page?current=1&pageSize=10&status=null
 
+
