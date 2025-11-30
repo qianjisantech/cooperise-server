@@ -4,15 +4,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dcp.common.Result;
 import com.dcp.common.annotation.RequiresPermission;
 import com.dcp.common.dto.TrackingLogQueryDTO;
+import com.dcp.common.dto.TrackingReportQueryDTO;
 import com.dcp.common.request.TrackingLogRequest;
+import com.dcp.common.vo.EventTypeStatisticsVO;
 import com.dcp.common.vo.PageVO;
 import com.dcp.common.vo.TrackingLogVO;
+import com.dcp.common.vo.UserActivityVO;
 import com.dcp.service.ITrackingLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 埋点日志控制器
@@ -53,5 +58,23 @@ public class TrackingLogController {
         log.info("[查询埋点日志详情] ID: {}", id);
         TrackingLogVO vo = trackingLogService.getTrackingLogById(id);
         return Result.success(vo);
+    }
+
+    @Operation(summary = "统计埋点类型数量（柱状图）", description = "展示年月日每个埋点类型的量")
+    @RequiresPermission("record:tracking:view")
+    @PostMapping("/report/event-type-statistics")
+    public Result<List<EventTypeStatisticsVO>> eventTypeStatistics(@RequestBody TrackingReportQueryDTO query) {
+        log.info("[统计埋点类型数量] 查询参数: {}", query);
+        List<EventTypeStatisticsVO> result = trackingLogService.statisticsByEventType(query);
+        return Result.success(result);
+    }
+
+    @Operation(summary = "统计用户活跃量", description = "展示用户的活跃量")
+    @RequiresPermission("record:tracking:view")
+    @PostMapping("/report/user-activity")
+    public Result<List<UserActivityVO>> userActivity(@RequestBody TrackingReportQueryDTO query) {
+        log.info("[统计用户活跃量] 查询参数: {}", query);
+        List<UserActivityVO> result = trackingLogService.statisticsUserActivity(query);
+        return Result.success(result);
     }
 }

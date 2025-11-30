@@ -80,3 +80,6 @@ GET {{baseUrl}}/rbac/dict/data/code/test_dict
 Authorization: Bearer {{token}}
 
 
+
+
+

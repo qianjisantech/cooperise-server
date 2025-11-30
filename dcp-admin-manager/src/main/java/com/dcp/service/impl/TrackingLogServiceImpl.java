@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dcp.common.context.UserContextHolder;
 import com.dcp.common.dto.TrackingLogQueryDTO;
+import com.dcp.common.dto.TrackingReportQueryDTO;
 import com.dcp.common.exception.BusinessException;
 import com.dcp.common.request.TrackingLogRequest;
 import com.dcp.common.util.BeanConverter;
+import com.dcp.common.vo.EventTypeStatisticsVO;
 import com.dcp.common.vo.TrackingLogVO;
+import com.dcp.common.vo.UserActivityVO;
 import com.dcp.entity.TrackingLog;
 import com.dcp.mapper.TrackingLogMapper;
 import com.dcp.rbac.entity.SysUser;
@@ -26,6 +29,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * 埋点日志服务实现类
@@ -138,6 +142,108 @@ public class TrackingLogServiceImpl extends ServiceImpl<TrackingLogMapper, Track
             throw new BusinessException("埋点日志不存在");
         }
         return BeanConverter.convert(trackingLog, TrackingLogVO::new);
+    }
+
+    @Override
+    public List<EventTypeStatisticsVO> statisticsByEventType(TrackingReportQueryDTO query) {
+        log.info("[统计埋点类型数量] 查询参数: {}", query);
+        
+        // 设置默认时间类型
+        String timeType = StringUtils.hasText(query.getTimeType()) ? query.getTimeType() : "day";
+        
+        // 处理时间格式，如果没有指定时间，默认查询最近30天
+        String startTime = query.getStartTime();
+        String endTime = query.getEndTime();
+        
+        if (!StringUtils.hasText(startTime) || !StringUtils.hasText(endTime)) {
+            LocalDateTime now = LocalDateTime.now();
+            if (!StringUtils.hasText(endTime)) {
+                endTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+            if (!StringUtils.hasText(startTime)) {
+                startTime = now.minusDays(30).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+        } else {
+            // 如果只提供了日期，补充时间部分
+            if (startTime.length() == 10) {
+                startTime = startTime + " 00:00:00";
+            }
+            if (endTime.length() == 10) {
+                endTime = endTime + " 23:59:59";
+            }
+        }
+        
+        List<EventTypeStatisticsVO> result = baseMapper.statisticsByEventType(timeType, startTime, endTime);
+        // 将事件类型转换为中文
+        result.forEach(item -> {
+            item.setEventType(convertEventTypeToChinese(item.getEventType()));
+        });
+        log.info("[统计埋点类型数量] 成功，共 {} 条记录", result.size());
+        return result;
+    }
+
+    @Override
+    public List<UserActivityVO> statisticsUserActivity(TrackingReportQueryDTO query) {
+        log.info("[统计用户活跃量] 查询参数: {}", query);
+        
+        // 设置默认时间类型
+        String timeType = StringUtils.hasText(query.getTimeType()) ? query.getTimeType() : "day";
+        
+        // 处理时间格式，如果没有指定时间，默认查询最近30天
+        String startTime = query.getStartTime();
+        String endTime = query.getEndTime();
+        
+        if (!StringUtils.hasText(startTime) || !StringUtils.hasText(endTime)) {
+            LocalDateTime now = LocalDateTime.now();
+            if (!StringUtils.hasText(endTime)) {
+                endTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+            if (!StringUtils.hasText(startTime)) {
+                startTime = now.minusDays(30).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+        } else {
+            // 如果只提供了日期，补充时间部分
+            if (startTime.length() == 10) {
+                startTime = startTime + " 00:00:00";
+            }
+            if (endTime.length() == 10) {
+                endTime = endTime + " 23:59:59";
+            }
+        }
+        
+        List<UserActivityVO> result = baseMapper.statisticsUserActivity(timeType, startTime, endTime);
+        log.info("[统计用户活跃量] 成功，共 {} 条记录", result.size());
+        return result;
+    }
+
+    /**
+     * 将事件类型转换为中文
+     *
+     * @param eventType 事件类型（英文）
+     * @return 中文名称
+     */
+    private String convertEventTypeToChinese(String eventType) {
+        if (eventType == null) {
+            return "未知";
+        }
+        switch (eventType) {
+            case "page_view":
+                return "页面访问";
+            case "login":
+                return "登录";
+            case "logout":
+                return "登出";
+            case "button_click":
+                return "按钮点击";
+            case "form_submit":
+                return "表单提交";
+            case "file_upload":
+                return "文件上传";
+            case "custom":
+                return "自定义";
+            default:
+                return eventType;
+        }
     }
 
     /**

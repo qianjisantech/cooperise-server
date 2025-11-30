@@ -56,3 +56,6 @@ GET {{baseUrl}}/workspace/issue/search?keyword=测试
 Authorization: Bearer {{token}}
 
 
+
+
+
