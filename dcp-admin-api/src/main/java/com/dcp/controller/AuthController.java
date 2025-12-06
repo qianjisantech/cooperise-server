@@ -2,16 +2,18 @@ package com.dcp.controller;
 
 import com.dcp.common.Result;
 import com.dcp.common.context.UserContextHolder;
+import com.dcp.common.request.LoginRequest;
 import com.dcp.common.vo.LoginResponseVO;
 import com.dcp.rbac.vo.SysUserProfileVO;
 import com.dcp.service.IAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * 认证控制器
@@ -36,19 +38,12 @@ public class AuthController {
 
     @Operation(summary = "用户登录")
     @PostMapping("/login")
-    public Result<LoginResponseVO> login(@RequestBody Map<String, String> loginData) {
+    public Result<LoginResponseVO> login(@Valid @RequestBody LoginRequest request) {
         try {
-            // 兼容前端：同时支持 email 和 username 字段
-            String email = loginData.get("email");
-            if (email == null || email.isEmpty()) {
-                email = loginData.get("username");
-            }
-            String password = loginData.get("password");
-
-            log.info("[用户登录] 邮箱: {}", email);
-            LoginResponseVO response = authService.login(email, password);
+            log.info("[用户登录] 邮箱: {}, 记住我: {}", request.getEmail(), request.getRemember());
+            LoginResponseVO response = authService.login(request.getEmail(), request.getPassword());
             log.info("[用户登录] 成功");
-            return Result.success(response);
+            return Result.success("登录成功",response);
         } catch (Exception e) {
             log.error("[用户登录] 失败，失败原因：{}", e.getMessage(), e);
             return Result.error(e.getMessage());

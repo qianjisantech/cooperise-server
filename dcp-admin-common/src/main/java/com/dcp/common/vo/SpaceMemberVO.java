@@ -32,14 +32,9 @@ public class SpaceMemberVO extends BaseVO {
     private Long userId;
 
     /**
-     * 用户名
+     * 姓名
      */
-    private String username;
-
-    /**
-     * 用户昵称
-     */
-    private String nickname;
+    private String name;
 
     /**
      * 用户头像
@@ -50,6 +45,11 @@ public class SpaceMemberVO extends BaseVO {
      * 用户邮箱
      */
     private String email;
+
+    /**
+     * 用户手机号
+     */
+    private String phone;
 
     /**
      * 角色：owner-所有者，admin-管理员，member-成员

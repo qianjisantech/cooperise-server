@@ -23,5 +23,5 @@ public class LoginResponseVO implements Serializable {
     /**
      * 用户信息
      */
-    private UserVO userInfo;
+    private UserInfoVO userInfo;
 }

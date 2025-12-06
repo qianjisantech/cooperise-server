@@ -79,12 +79,12 @@ public interface ISysUserService extends IService<SysUser> {
     void updateLastLoginTime(Long userId);
 
     /**
-     * 根据用户名查询用户
+     * 根据姓名查询用户
      *
-     * @param username 用户名
+     * @param name 姓名
      * @return 用户信息
      */
-    SysUser getUserByUsername(String username);
+    SysUser getUserByName(String name);
 
     /**
      * 根据邮箱查询用户

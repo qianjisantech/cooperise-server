@@ -1,7 +1,7 @@
 package com.dcp.rbac.vo;
 
 import com.dcp.common.vo.SpaceVO;
-import com.dcp.common.vo.UserVO;
+import com.dcp.common.vo.UserInfoVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class SysUserProfileVO implements Serializable {
     /**
      * 用户基本信息
      */
-    private UserVO userInfo;
+    private UserInfoVO userInfo;
 
     /**
      * 菜单权限列表（权限标识数组）

@@ -45,12 +45,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 构建查询条件
         LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
 
-        if (StringUtils.hasText(request.getUsername())) {
-            wrapper.like(SysUser::getUsername, request.getUsername());
-        }
-
-        if (StringUtils.hasText(request.getUserCode())) {
-            wrapper.like(SysUser::getUserCode, request.getUserCode());
+        if (StringUtils.hasText(request.getName())) {
+            wrapper.like(SysUser::getName, request.getName());
         }
 
         if (request.getStatus() != null) {
@@ -181,9 +177,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         // 检查用户名是否被其他用户使用
-        if (!existingSysUser.getUsername().equals(request.getUsername())) {
+        if (!existingSysUser.getName().equals(request.getUserCode())) {
             LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(SysUser::getUsername, request.getUsername());
+            wrapper.eq(SysUser::getUserCode, request.getUserCode());
             wrapper.ne(SysUser::getId, userId);
             long count = this.count(wrapper);
             if (count > 0) {
@@ -242,9 +238,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public SysUser getUserByUsername(String username) {
+    public SysUser getUserByName(String name) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUsername, username);
+        queryWrapper.eq(SysUser::getUserCode, name);
         return this.getOne(queryWrapper);
     }
 
@@ -266,9 +262,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUser> getSimpleUserList() {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         // 只查询需要的字段：id, username, userCode, email
-        queryWrapper.select(SysUser::getId, SysUser::getUsername, SysUser::getUserCode, SysUser::getEmail);
+        queryWrapper.select(SysUser::getId, SysUser::getName, SysUser::getUserCode, SysUser::getEmail);
         // MyBatis Plus 会自动过滤逻辑删除的数据（因为 BaseEntity 中有 @TableLogic）
-        queryWrapper.orderByAsc(SysUser::getUsername);
+        queryWrapper.orderByAsc(SysUser::getLastLoginTime);
         return this.list(queryWrapper);
     }
 

@@ -15,14 +15,10 @@ import lombok.EqualsAndHashCode;
 public class SysUserQueryRequest extends PageRequest {
 
     /**
-     * 用户名（模糊查询）
+     * 姓名（模糊查询）
      */
-    private String username;
+    private String name;
 
-    /**
-     * 用户编码（模糊查询）
-     */
-    private String userCode;
 
     /**
      * 状态：1-正常，0-禁用

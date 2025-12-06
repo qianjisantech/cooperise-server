@@ -54,7 +54,7 @@ public class SpaceMemberServiceImpl extends ServiceImpl<SpaceMemberMapper, Space
         }
 
         // 4. 只返回需要的字段
-        userWrapper.select(SysUser::getId, SysUser::getUsername, SysUser::getUserCode, SysUser::getEmail);
+        userWrapper.select(SysUser::getId, SysUser::getName, SysUser::getUserCode, SysUser::getEmail);
 
         return sysUserMapper.selectList(userWrapper);
     }
@@ -98,10 +98,10 @@ public class SpaceMemberServiceImpl extends ServiceImpl<SpaceMemberMapper, Space
             // 填充用户信息
             SysUser user = userMap.get(member.getUserId());
             if (user != null) {
-                vo.setUsername(user.getUsername());
+                vo.setName(user.getName());
                 vo.setEmail(user.getEmail());
                 vo.setAvatar(user.getAvatar());
-                vo.setNickname(user.getUserCode()); // 使用 userCode 作为昵称
+                vo.setPhone(user.getPhone());
             }
 
             return vo;

@@ -32,3 +32,4 @@ public class EventTypeStatisticsVO implements Serializable {
     private Long count;
 }
 
+

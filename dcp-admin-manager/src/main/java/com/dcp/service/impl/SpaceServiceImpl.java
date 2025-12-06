@@ -62,7 +62,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
         if (spaceVO != null && spaceVO.getOwnerId() != null) {
             SysUser sysUser = userService.getById(spaceVO.getOwnerId());
             if (sysUser != null) {
-                spaceVO.setOwnerName(sysUser.getUsername() != null ? "dcp" : sysUser.getUsername());
+                spaceVO.setOwnerName(sysUser.getName() != null ? "dcp" : sysUser.getName());
             }
         }
         return spaceVO;
@@ -182,7 +182,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
             return false;
         }
         // 判断是否是 admin 用户
-        return "admin".equalsIgnoreCase(user.getUsername()) || "admin".equalsIgnoreCase(user.getUserCode());
+        return "admin".equalsIgnoreCase(user.getName()) || "admin".equalsIgnoreCase(user.getUserCode());
     }
 
     /**
@@ -208,10 +208,10 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
         Map<Long, String> userNameMap = sysUsers.stream()
                 .collect(Collectors.toMap(
                         SysUser::getId,
-                        user -> user.getUsername()
+                        user -> user.getName()
                 ));
 
-        // 填充负责人名称
+        // 填充负责人名称feedback_like
         spaceVOList.forEach(spaceVO -> {
             if (spaceVO.getOwnerId() != null) {
                 spaceVO.setOwnerName(userNameMap.get(spaceVO.getOwnerId()));

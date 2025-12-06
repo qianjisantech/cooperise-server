@@ -39,7 +39,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 2497822530@qq.com
-    password: YOUR_QQ_EMAIL_AUTH_CODE  # 请替换为QQ邮箱授权码（不是QQ密码）
+    password: sifwrrvzyncudjgj  # 请替换为QQ邮箱授权码（不是QQ密码）
     properties:
       mail:
         smtp:

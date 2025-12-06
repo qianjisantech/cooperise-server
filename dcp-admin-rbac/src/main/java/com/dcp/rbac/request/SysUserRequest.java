@@ -20,7 +20,7 @@ public class SysUserRequest {
     @NotBlank(message = "用户名不能为空")
     @Size(min = 3, max = 50, message = "用户名长度必须在3-50个字符之间")
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "用户名只能包含字母、数字和下划线")
-    private String username;
+    private String name;
 
     /**
      * 用户编码
@@ -28,12 +28,6 @@ public class SysUserRequest {
     @NotBlank(message = "用户编码不能为空")
     @Size(max = 50, message = "用户编码不能超过50个字符")
     private String userCode;
-
-    /**
-     * 昵称
-     */
-    @Size(max = 50, message = "昵称不能超过50个字符")
-    private String nickname;
 
     /**
      * 邮箱

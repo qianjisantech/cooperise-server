@@ -66,10 +66,10 @@ public class TopNotificationServiceImpl extends ServiceImpl<TopNotificationMappe
         notification.setPublishTime(LocalDateTime.now());
         notification.setPublisherId(userId);
         notification.setPublisherCode(currentUser.getUserCode());
-        notification.setPublisherName(currentUser.getUsername());
+        notification.setPublisherName(currentUser.getName());
         this.updateById(notification);
 
-        log.info("[TopNotificationService] 顶部通知发布成功，ID: {}, 发布人: {}", id, currentUser.getUsername());
+        log.info("[TopNotificationService] 顶部通知发布成功，ID: {}, 发布人: {}", id, currentUser.getName());
 
         // 通过WebSocket广播最新的已发布通知
         try {

@@ -1,10 +1,8 @@
 package com.dcp.common.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +49,5 @@ public class WorkspaceIssueDetailVO extends WorkspaceIssueVO {
     /**
      * 观察者列表
      */
-    private List<UserVO> watchers;
+    private List<UserInfoVO> watchers;
 }

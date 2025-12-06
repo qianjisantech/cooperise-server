@@ -116,7 +116,7 @@ public class TrackingLogServiceImpl extends ServiceImpl<TrackingLogMapper, Track
             trackingLog.setUserId(userId);
             SysUser user = userService.getById(userId);
             if (user != null) {
-                trackingLog.setUsername(user.getUsername());
+                trackingLog.setUsername(user.getName());
                 trackingLog.setUserCode(user.getUserCode());
             }
         }

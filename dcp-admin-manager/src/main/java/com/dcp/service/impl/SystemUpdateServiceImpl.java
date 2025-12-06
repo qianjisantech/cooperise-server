@@ -66,10 +66,10 @@ public class SystemUpdateServiceImpl extends ServiceImpl<SystemUpdateMapper, Sys
         update.setPublishTime(LocalDateTime.now());
         update.setPublisherId(userId);
         update.setPublisherCode(currentUser.getUserCode());
-        update.setPublisherName(currentUser.getUsername());
+        update.setPublisherName(currentUser.getName());
         this.updateById(update);
 
-        log.info("[SystemUpdateService] 系统更新发布成功，ID: {}, 发布人: {}", id, currentUser.getUsername());
+        log.info("[SystemUpdateService] 系统更新发布成功，ID: {}, 发布人: {}", id, currentUser.getName());
     }
 
     @Override

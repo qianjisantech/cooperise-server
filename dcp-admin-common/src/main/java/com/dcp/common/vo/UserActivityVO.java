@@ -32,3 +32,4 @@ public class UserActivityVO implements Serializable {
     private Long totalCount;
 }
 
+

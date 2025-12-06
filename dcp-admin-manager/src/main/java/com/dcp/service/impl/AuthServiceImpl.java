@@ -5,7 +5,7 @@ import com.dcp.common.util.JwtUtil;
 import com.dcp.common.util.UserCodeGenerator;
 import com.dcp.common.vo.LoginResponseVO;
 import com.dcp.common.vo.SpaceVO;
-import com.dcp.common.vo.UserVO;
+import com.dcp.common.vo.UserInfoVO;
 import com.dcp.rbac.entity.SysUser;
 import com.dcp.rbac.service.ISysMenuService;
 import com.dcp.rbac.service.ISysUserService;
@@ -48,16 +48,6 @@ public class AuthServiceImpl implements IAuthService {
     public LoginResponseVO login(String email, String password) {
         log.info("[AuthService] 用户登录: {}", email);
 
-        // 验证邮箱格式
-        if (!StringUtils.hasText(email)) {
-            throw new RuntimeException("邮箱不能为空");
-        }
-
-        String emailRegex = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-        if (!email.matches(emailRegex)) {
-            throw new RuntimeException("邮箱格式不正确");
-        }
-
         // 根据邮箱查询用户
         SysUser sysUser = userService.getUserByEmail(email);
 
@@ -75,15 +65,15 @@ public class AuthServiceImpl implements IAuthService {
         userService.updateLastLoginTime(sysUser.getId());
 
         // 生成JWT token，包含用户ID、用户名和用户编码
-        String token = JwtUtil.generateToken(sysUser.getId(), sysUser.getUsername(), sysUser.getUserCode());
+        String token = JwtUtil.generateToken(sysUser.getId(), sysUser.getName(), sysUser.getUserCode());
 
         // 构建返回结果
         LoginResponseVO response = new LoginResponseVO();
         response.setToken(token);
 
         // 用户信息（不返回密码）
-        UserVO userVO = BeanConverter.convert(sysUser, UserVO::new);
-        response.setUserInfo(userVO);
+        UserInfoVO userInfoVO = BeanConverter.convert(sysUser, UserInfoVO::new);
+        response.setUserInfo(userInfoVO);
 
         log.info("[AuthService] 用户登录成功，邮箱: {}, 用户编码: {}", email, sysUser.getUserCode());
         return response;
@@ -148,7 +138,7 @@ public class AuthServiceImpl implements IAuthService {
         }
 
         // 截取邮箱@前面的部分作为用户名
-        String username = email.split("@")[0];
+        String name = email.split("@")[0];
 
         // 生成8位纯数字的用户编码
         String userCode = UserCodeGenerator.generate();
@@ -166,7 +156,7 @@ public class AuthServiceImpl implements IAuthService {
 
         // 创建新用户
         SysUser newSysUser = new SysUser();
-        newSysUser.setUsername(username);
+        newSysUser.setName(name);
         newSysUser.setUserCode(userCode);
         newSysUser.setEmail(email);
 
@@ -194,7 +184,7 @@ public class AuthServiceImpl implements IAuthService {
         // 删除验证码
         verificationCodeService.removeCode(email);
 
-        log.info("[AuthService] 用户注册成功，邮箱: {}, 用户名: {}, 用户编码: {}", email, username, userCode);
+        log.info("[AuthService] 用户注册成功，邮箱: {}, 用户名: {}, 用户编码: {}", email, name, userCode);
     }
 
     @Override
@@ -214,11 +204,11 @@ public class AuthServiceImpl implements IAuthService {
         SysUserProfileVO profile = new SysUserProfileVO();
 
         // 用户基本信息
-        UserVO userVO = BeanConverter.convert(sysUser, UserVO::new);
-        profile.setUserInfo(userVO);
+        UserInfoVO userInfoVO = BeanConverter.convert(sysUser, UserInfoVO::new);
+        profile.setUserInfo(userInfoVO);
 
         // 判断是否为 admin 用户
-        boolean isAdmin = "admin".equalsIgnoreCase(sysUser.getUsername());
+        boolean isAdmin = "admin".equalsIgnoreCase(sysUser.getName());
 
         // 获取用户菜单权限
         List<SysMenuVO> menuTree = menuService.getUserMenuTree(userId);

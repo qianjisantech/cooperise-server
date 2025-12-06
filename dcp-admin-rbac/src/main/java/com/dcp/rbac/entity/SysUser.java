@@ -25,10 +25,10 @@ public class SysUser extends BaseEntity {
     private Long id;
 
     /**
-     * 用户名
+     * 姓名
      */
-    @TableField("username")
-    private String username;
+    @TableField("name")
+    private String name;
 
     /**
      * 密码（加密）

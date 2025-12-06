@@ -64,7 +64,7 @@ public class SettingsServiceImpl implements ISettingsService {
         // 4. 组装响应VO
         UserSettingsResponseVO vo = new UserSettingsResponseVO();
         vo.setUserId(sysUser.getId());
-        vo.setUsername(sysUser.getUsername());
+        vo.setUsername(sysUser.getName());
         vo.setNickname(sysUser.getUserCode());
         vo.setEmail(sysUser.getEmail());
         vo.setPhone(sysUser.getPhone());
@@ -115,7 +115,7 @@ public class SettingsServiceImpl implements ISettingsService {
         // 账号设置
         UserSettingsGroupedVO.AccountSettings account = new UserSettingsGroupedVO.AccountSettings();
         account.setUserId(sysUser.getId());
-        account.setUsername(sysUser.getUsername());
+        account.setUsername(sysUser.getName());
         account.setUserCode(sysUser.getUserCode());
         account.setEmail(sysUser.getEmail());
         account.setPhone(sysUser.getPhone());
@@ -166,8 +166,8 @@ public class SettingsServiceImpl implements ISettingsService {
         if (request.getPhone() != null) {
             sysUser.setPhone(request.getPhone());
         }
-        if (StringUtils.isNotEmpty(request.getUsername())){
-            sysUser.setUsername(request.getUsername());
+        if (StringUtils.isNotEmpty(request.getName())){
+            sysUser.setName(request.getName());
         }
         sysUserMapper.updateById(sysUser);
     }

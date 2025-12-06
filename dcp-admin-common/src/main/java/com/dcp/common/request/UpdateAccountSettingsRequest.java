@@ -21,10 +21,10 @@ public class UpdateAccountSettingsRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用戶名
+     * 姓名
      */
-    @Size(max = 50, message = "昵称长度不能超过50个字符")
-    private String username;
+    @Size(max = 50, message = "姓名不能超过50个字符")
+    private String name;
 
     /**
      * 用户编码
