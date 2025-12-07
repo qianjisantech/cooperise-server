@@ -12,20 +12,25 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.dcp</groupId>
-    <artifactId>dcp-admin</artifactId>
+    <groupId>com.qianjisan</groupId>
+    <artifactId>diego-server</artifactId>
     <version>${revision}</version>
-    <name>dcp-admin</name>
-    <description>DCP Project Management System - Backend (Multi-Module)</description>
+    <name>diego-server</name>
+    <description>需求管理系统后端服务</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>dcp-admin-common</module>
-        <module>dcp-admin-dao</module>
-        <module>dcp-admin-manager</module>
-        <module>dcp-admin-core</module>
-        <module>dcp-admin-api</module>
-        <module>dcp-admin-rbac</module>
+        <module>diego-server-console</module>
+        <module>diego-server-common</module>
+
+        <module>diego-server-admin</module>
+        <module>diego-server-core</module>
+        <module>diego-server-system</module>
+        <module>diego-server-issue</module>
+        <module>diego-server-enterprise</module>
+        <module>diego-server-auth</module>
+        <module>diego-server-view</module>
+        <module>diego-server-cs</module>
     </modules>
 
     <properties>
@@ -54,37 +59,44 @@
     <dependencyManagement>
         <dependencies>
             <!-- 内部模块依赖 -->
+
             <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-common</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-dao</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-manager</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dcp</groupId>
-                <artifactId>dcp-admin-rbac</artifactId>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-admin</artifactId>
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-console</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-system</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-issue</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-issue</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!-- MySQL Driver -->
             <dependency>
                 <groupId>com.mysql</groupId>

@@ -23,12 +23,11 @@ ENV PATH="${JAVA_HOME}/bin:${PATH}"
 COPY pom.xml /app/
 
 # 将各模块的 pom.xml 拷贝到工作目录
-COPY dcp-admin-common/pom.xml /app/dcp-admin-common/
-COPY dcp-admin-dao/pom.xml /app/dcp-admin-dao/
-COPY dcp-admin-manager/pom.xml /app/dcp-admin-manager/
-COPY dcp-admin-core/pom.xml /app/dcp-admin-core/
-COPY dcp-admin-api/pom.xml /app/dcp-admin-api/
-COPY dcp-admin-rbac/pom.xml /app/dcp-admin-rbac/
+COPY diego-server-common/pom.xml /app/dcp-admin-common/
+COPY diego-server-dao/pom.xml /app/dcp-admin-dao/
+COPY diego-server-admin/pom.xml /app/dcp-admin-manager/
+COPY diego-server-core/pom.xml /app/dcp-admin-core/
+
 
 # 下载依赖（利用 Docker 缓存层，只有 pom.xml 变化时才重新下载）
 # 使用 Maven 中央仓库下载依赖
@@ -36,12 +35,11 @@ COPY dcp-admin-rbac/pom.xml /app/dcp-admin-rbac/
 RUN mvn -f /app/pom.xml dependency:go-offline -B || true
 
 # 将 src 目录下所有文件，拷贝到工作目录中（.dockerignore 中文件除外）
-COPY dcp-admin-common/src /app/dcp-admin-common/src
-COPY dcp-admin-dao/src /app/dcp-admin-dao/src
-COPY dcp-admin-manager/src /app/dcp-admin-manager/src
-COPY dcp-admin-core/src /app/dcp-admin-core/src
-COPY dcp-admin-api/src /app/dcp-admin-api/src
-COPY dcp-admin-rbac/src /app/dcp-admin-rbac/src
+COPY diego-server-common/src /app/dcp-admin-common/src
+COPY diego-server-dao/src /app/dcp-admin-dao/src
+COPY diego-server-admin/src /app/dcp-admin-manager/src
+COPY diego-server-core/src /app/dcp-admin-core/src
+
 
 # 执行代码编译命令，跳过测试以加快构建速度
 RUN mvn -f /app/pom.xml clean package -DskipTests -B
