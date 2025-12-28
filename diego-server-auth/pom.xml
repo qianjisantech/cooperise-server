@@ -5,6 +5,7 @@
         <groupId>com.qianjisan</groupId>
         <artifactId>diego-server</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>diego-server-auth</artifactId>
@@ -30,6 +31,12 @@
         <dependency>
             <groupId>com.qianjisan</groupId>
             <artifactId>diego-server-common</artifactId>
+        </dependency>
+        <!-- 企业模块（公司/部门） -->
+        <dependency>
+            <groupId>com.qianjisan</groupId>
+            <artifactId>diego-server-enterprise</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <!-- Spring Boot Starter Validation -->

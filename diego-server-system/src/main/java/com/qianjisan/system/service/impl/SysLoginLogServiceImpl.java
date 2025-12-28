@@ -3,10 +3,12 @@ package com.qianjisan.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qianjisan.common.dto.LoginLogQueryDTO;
-import com.qianjisan.entity.SysLoginLog;
-import com.qianjisan.mapper.SysLoginLogMapper;
-import com.qianjisan.service.ILoginLogService;
+
+import com.qianjisan.system.entity.SysLoginLog;
+
+import com.qianjisan.system.request.SysLoginLogQueryRequest;
+import com.qianjisan.system.service.ILoginLogService;
+import com.qianjisan.system.mapper.SysLoginLogMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,7 +24,7 @@ import org.springframework.util.StringUtils;
 public class SysLoginLogServiceImpl extends ServiceImpl<SysLoginLogMapper, SysLoginLog> implements ILoginLogService {
 
     @Override
-    public Page<SysLoginLog> pageLoginLog(LoginLogQueryDTO query) {
+    public Page<SysLoginLog> pageLoginLog(SysLoginLogQueryRequest query) {
         log.info("[分页查询登录日志管理] 查询参数: {}", query);
         Page<SysLoginLog> page = new Page<>(query.getCurrent(), query.getSize());
         LambdaQueryWrapper<SysLoginLog> queryWrapper = new LambdaQueryWrapper<>();
@@ -32,7 +34,7 @@ public class SysLoginLogServiceImpl extends ServiceImpl<SysLoginLogMapper, SysLo
         if (StringUtils.hasText(query.getLoginIp())) {
             queryWrapper.eq(SysLoginLog::getLoginIp, query.getLoginIp());
         }
-        if (StringUtils.hasText(query.getStatus())) {
+        if (query.getStatus() != null) {
             queryWrapper.eq(SysLoginLog::getStatus, query.getStatus());
         }
         if (StringUtils.hasText(query.getKeyword())) {

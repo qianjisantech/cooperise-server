@@ -3,7 +3,7 @@ package com.qianjisan.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qianjisan.system.request.SysUserQueryRequest;
 import com.qianjisan.system.request.SysUserRequest;
-import com.qianjisan.common.vo.PageVO;
+import com.qianjisan.core.PageVO;
 import com.qianjisan.system.vo.SysUserVO;
 import com.qianjisan.system.entity.SysUser;
 
@@ -78,13 +78,6 @@ public interface ISysUserService extends IService<SysUser> {
      */
     void updateLastLoginTime(Long userId);
 
-    /**
-     * 根据姓名查询用户
-     *
-     * @param name 姓名
-     * @return 用户信息
-     */
-    SysUser getUserByName(String name);
 
     /**
      * 根据邮箱查询用户

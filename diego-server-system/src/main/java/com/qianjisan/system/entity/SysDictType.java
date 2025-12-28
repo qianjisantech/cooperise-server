@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.qianjisan.common.entity.BaseEntity;
+import com.qianjisan.core.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -3,10 +3,11 @@ package com.qianjisan.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qianjisan.core.utils.PageUtils;
 import com.qianjisan.system.request.SysBatchUpdateFieldConfigRequest;
 import com.qianjisan.system.request.SysConfigQueryRequest;
 import com.qianjisan.system.request.SysConfigRequest;
-import com.qianjisan.common.util.PageUtils;
+
 import com.qianjisan.system.vo.SysConfigVO;
 import com.qianjisan.system.vo.SysFieldConfigVO;
 import com.qianjisan.system.entity.SysConfig;

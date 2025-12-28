@@ -1,13 +1,10 @@
 package com.qianjisan.system.mapper;
-
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qianjisan.common.vo.EventTypeStatisticsVO;
-import com.qianjisan.common.vo.UserActivityVO;
-import com.qianjisan.entity.SysTrackingLog;
+import com.qianjisan.system.entity.SysTrackingLog;
+import com.qianjisan.system.vo.EventTypeStatisticsVO;
+import com.qianjisan.system.vo.UserActivityVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 /**

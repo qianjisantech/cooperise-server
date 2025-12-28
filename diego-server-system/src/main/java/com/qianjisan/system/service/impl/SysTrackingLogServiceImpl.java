@@ -3,20 +3,22 @@ package com.qianjisan.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qianjisan.common.context.UserContextHolder;
-import com.qianjisan.common.dto.TrackingLogQueryDTO;
-import com.qianjisan.common.dto.TrackingReportQueryDTO;
-import com.qianjisan.common.exception.BusinessException;
-import com.qianjisan.common.request.TrackingLogRequest;
-import com.qianjisan.common.util.BeanConverter;
-import com.qianjisan.common.vo.EventTypeStatisticsVO;
-import com.qianjisan.common.vo.TrackingLogVO;
-import com.qianjisan.common.vo.UserActivityVO;
-import com.qianjisan.entity.TrackingLog;
-import com.qianjisan.mapper.SysTrackingLogMapper;
+
+import com.qianjisan.core.context.UserContextHolder;
+import com.qianjisan.core.exception.BusinessException;
+
+import com.qianjisan.core.utils.BeanConverter;
+import com.qianjisan.system.entity.SysTrackingLog;
 import com.qianjisan.system.entity.SysUser;
+import com.qianjisan.system.mapper.SysTrackingLogMapper;
+import com.qianjisan.system.request.SysTrackingLogQueryRequest;
+import com.qianjisan.system.request.SysTrackingLogRequest;
+import com.qianjisan.system.request.TrackingReportQueryRequest;
+import com.qianjisan.system.service.ISysTrackingLogService;
 import com.qianjisan.system.service.ISysUserService;
-import com.qianjisan.service.ITrackingLogService;
+import com.qianjisan.system.vo.EventTypeStatisticsVO;
+import com.qianjisan.system.vo.SysTrackingLogVO;
+import com.qianjisan.system.vo.UserActivityVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -40,74 +42,74 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SysTrackingLogServiceImpl extends ServiceImpl<SysTrackingLogMapper, TrackingLog> implements ITrackingLogService {
+public class SysTrackingLogServiceImpl extends ServiceImpl<SysTrackingLogMapper, SysTrackingLog> implements ISysTrackingLogService {
 
     private final ISysUserService userService;
 
     @Override
-    public Page<TrackingLogVO> pageQuery(TrackingLogQueryDTO query) {
-        Page<TrackingLog> page = new Page<>(query.getCurrent(), query.getSize());
+    public Page<SysTrackingLogVO> pageQuery(SysTrackingLogQueryRequest request) {
+        Page<SysTrackingLog> page = new Page<>(request.getCurrent(), request.getSize());
 
-        LambdaQueryWrapper<TrackingLog> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<SysTrackingLog> wrapper = new LambdaQueryWrapper<>();
 
         // 用户ID
-        if (query.getUserId() != null) {
-            wrapper.eq(TrackingLog::getUserId, query.getUserId());
+        if (request.getUserId() != null) {
+            wrapper.eq(SysTrackingLog::getUserId, request.getUserId());
         }
 
         // 用户名
-        if (StringUtils.hasText(query.getUsername())) {
-            wrapper.like(TrackingLog::getUsername, query.getUsername());
+        if (StringUtils.hasText(request.getUsername())) {
+            wrapper.like(SysTrackingLog::getUsername, request.getUsername());
         }
 
         // 事件类型
-        if (StringUtils.hasText(query.getEventType())) {
-            wrapper.eq(TrackingLog::getEventType, query.getEventType());
+        if (StringUtils.hasText(request.getEventType())) {
+            wrapper.eq(SysTrackingLog::getEventType, request.getEventType());
         }
 
         // 事件名称
-        if (StringUtils.hasText(query.getEventName())) {
-            wrapper.like(TrackingLog::getEventName, query.getEventName());
+        if (StringUtils.hasText(request.getEventName())) {
+            wrapper.like(SysTrackingLog::getEventName, request.getEventName());
         }
 
         // 页面URL
-        if (StringUtils.hasText(query.getPageUrl())) {
-            wrapper.like(TrackingLog::getPageUrl, query.getPageUrl());
+        if (StringUtils.hasText(request.getPageUrl())) {
+            wrapper.like(SysTrackingLog::getPageUrl, request.getPageUrl());
         }
 
         // 时间范围
-        if (StringUtils.hasText(query.getStartTime())) {
-            LocalDateTime startTime = LocalDateTime.parse(query.getStartTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            wrapper.ge(TrackingLog::getCreateTime, startTime);
+        if (StringUtils.hasText(request.getStartTime())) {
+            LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            wrapper.ge(SysTrackingLog::getCreateTime, startTime);
         }
-        if (StringUtils.hasText(query.getEndTime())) {
-            LocalDateTime endTime = LocalDateTime.parse(query.getEndTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            wrapper.le(TrackingLog::getCreateTime, endTime);
+        if (StringUtils.hasText(request.getEndTime())) {
+            LocalDateTime endTime = LocalDateTime.parse(request.getEndTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            wrapper.le(SysTrackingLog::getCreateTime, endTime);
         }
 
         // 关键词搜索
-        if (StringUtils.hasText(query.getKeyword())) {
+        if (StringUtils.hasText(request.getKeyword())) {
             wrapper.and(w -> w
-                .like(TrackingLog::getEventName, query.getKeyword())
+                .like(SysTrackingLog::getEventName, request.getKeyword())
                 .or()
-                .like(TrackingLog::getPageUrl, query.getKeyword())
+                .like(SysTrackingLog::getPageUrl, request.getKeyword())
                 .or()
-                .like(TrackingLog::getPageTitle, query.getKeyword())
+                .like(SysTrackingLog::getPageTitle, request.getKeyword())
                 .or()
-                .like(TrackingLog::getElementText, query.getKeyword())
+                .like(SysTrackingLog::getElementText, request.getKeyword())
             );
         }
 
         // 按创建时间倒序
-        wrapper.orderByDesc(TrackingLog::getCreateTime);
+        wrapper.orderByDesc(SysTrackingLog::getCreateTime);
 
-        Page<TrackingLog> resultPage = page(page, wrapper);
-        return BeanConverter.convertPage(resultPage, TrackingLogVO::new);
+        Page<SysTrackingLog> resultPage = page(page, wrapper);
+        return BeanConverter.convertPage(resultPage, SysTrackingLogVO::new);
     }
 
     @Override
-    public void saveTrackingLog(TrackingLogRequest request) {
-        TrackingLog trackingLog = new TrackingLog();
+    public void saveTrackingLog(SysTrackingLogRequest request) {
+        SysTrackingLog trackingLog = new SysTrackingLog();
         BeanUtils.copyProperties(request, trackingLog);
 
         // 获取当前用户信息
@@ -136,24 +138,24 @@ public class SysTrackingLogServiceImpl extends ServiceImpl<SysTrackingLogMapper,
     }
 
     @Override
-    public TrackingLogVO getTrackingLogById(Long id) {
-        TrackingLog trackingLog = getById(id);
+    public SysTrackingLogVO getTrackingLogById(Long id) {
+        SysTrackingLog trackingLog = getById(id);
         if (trackingLog == null) {
             throw new BusinessException("埋点日志不存在");
         }
-        return BeanConverter.convert(trackingLog, TrackingLogVO::new);
+        return BeanConverter.convert(trackingLog, SysTrackingLogVO::new);
     }
 
     @Override
-    public List<EventTypeStatisticsVO> statisticsByEventType(TrackingReportQueryDTO query) {
-        log.info("[统计埋点类型数量] 查询参数: {}", query);
+    public List<EventTypeStatisticsVO> statisticsByEventType(TrackingReportQueryRequest request) {
+        log.info("[统计埋点类型数量] 查询参数: {}", request);
         
         // 设置默认时间类型
-        String timeType = StringUtils.hasText(query.getTimeType()) ? query.getTimeType() : "day";
+        String timeType = StringUtils.hasText(request.getTimeType()) ? request.getTimeType() : "day";
         
         // 处理时间格式，如果没有指定时间，默认查询最近30天
-        String startTime = query.getStartTime();
-        String endTime = query.getEndTime();
+        String startTime = request.getStartTime();
+        String endTime = request.getEndTime();
         
         if (!StringUtils.hasText(startTime) || !StringUtils.hasText(endTime)) {
             LocalDateTime now = LocalDateTime.now();
@@ -183,15 +185,15 @@ public class SysTrackingLogServiceImpl extends ServiceImpl<SysTrackingLogMapper,
     }
 
     @Override
-    public List<UserActivityVO> statisticsUserActivity(TrackingReportQueryDTO query) {
-        log.info("[统计用户活跃量] 查询参数: {}", query);
+    public List<UserActivityVO> statisticsUserActivity(SysTrackingLogQueryRequest request) {
+        log.info("[统计用户活跃量] 查询参数: {}", request);
         
         // 设置默认时间类型
-        String timeType = StringUtils.hasText(query.getTimeType()) ? query.getTimeType() : "day";
+        String timeType = StringUtils.hasText(request.getTimeType()) ? request.getTimeType() : "day";
         
         // 处理时间格式，如果没有指定时间，默认查询最近30天
-        String startTime = query.getStartTime();
-        String endTime = query.getEndTime();
+        String startTime = request.getStartTime();
+        String endTime = request.getEndTime();
         
         if (!StringUtils.hasText(startTime) || !StringUtils.hasText(endTime)) {
             LocalDateTime now = LocalDateTime.now();

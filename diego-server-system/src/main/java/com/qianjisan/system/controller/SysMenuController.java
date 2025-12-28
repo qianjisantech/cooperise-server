@@ -1,6 +1,6 @@
 package com.qianjisan.system.controller;
 
-import com.qianjisan.common.Result;
+import com.qianjisan.core.Result;
 import com.qianjisan.system.request.SysMenuRequest;
 import com.qianjisan.system.vo.SysMenuVO;
 import com.qianjisan.system.service.ISysMenuService;

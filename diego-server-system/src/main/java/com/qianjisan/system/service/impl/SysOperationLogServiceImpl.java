@@ -3,12 +3,12 @@ package com.qianjisan.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qianjisan.core.utils.BeanConverter;
 import com.qianjisan.system.entity.SysOperationLog;
 import com.qianjisan.system.mapper.SysOperationLogMapper;
 import com.qianjisan.system.request.SysOperationLogRequest;
 import com.qianjisan.system.service.ISysOperationLogService;
 import com.qianjisan.system.vo.SysOperationLogVO;
-import com.qianjisan.util.BeanConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

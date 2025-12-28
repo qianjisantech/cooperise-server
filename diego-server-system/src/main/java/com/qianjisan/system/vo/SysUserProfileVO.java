@@ -1,7 +1,8 @@
 package com.qianjisan.system.vo;
 
-import com.qianjisan.common.vo.SpaceVO;
-import com.qianjisan.common.vo.UserInfoVO;
+import com.qianjisan.core.request.SpaceVO;
+import com.qianjisan.common.vo.CompanyVo;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -47,6 +48,16 @@ public class SysUserProfileVO implements Serializable {
      * 可访问的空间ID列表
      */
     private Long[] spaceIds;
+
+    /**
+     * 当前用户所属企业列表
+     */
+    private List<CompanyVo> companies;
+
+    /**
+     * 当前用户所属企业ID列表
+     */
+    private Long[] companyIds;
 
     /**
      * 数据权限配置

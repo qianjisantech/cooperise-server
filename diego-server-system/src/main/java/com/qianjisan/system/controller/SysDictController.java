@@ -1,11 +1,11 @@
 package com.qianjisan.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.qianjisan.common.Result;
+import com.qianjisan.core.Result;
 import com.qianjisan.system.request.SysDictTypeQueryRequest;
 import com.qianjisan.system.request.SysDictDataRequest;
 import com.qianjisan.system.request.SysDictTypeRequest;
-import com.qianjisan.common.vo.PageVO;
+import com.qianjisan.core.PageVO;
 import com.qianjisan.system.vo.SysDictDataVO;
 import com.qianjisan.system.vo.SysDictTypeVO;
 import com.qianjisan.system.mapper.SysDictDataMapper;

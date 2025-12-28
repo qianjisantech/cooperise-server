@@ -1,8 +1,9 @@
 package com.qianjisan.system.mapper;
 
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qianjisan.entity.SysLoginLog;
+import com.qianjisan.system.entity.SysLoginLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

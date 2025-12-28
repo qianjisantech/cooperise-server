@@ -1,6 +1,7 @@
 package com.qianjisan.system.request;
 
-import com.qianjisan.common.request.PageRequest;
+
+import com.qianjisan.core.request.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

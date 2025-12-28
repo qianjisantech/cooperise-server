@@ -1,7 +1,7 @@
 package com.qianjisan.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.qianjisan.common.entity.BaseEntity;
+import com.qianjisan.core.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

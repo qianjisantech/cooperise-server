@@ -1,11 +1,11 @@
 package com.qianjisan.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.qianjisan.common.Result;
+import com.qianjisan.core.Result;
 import com.qianjisan.system.request.SysBatchUpdateFieldConfigRequest;
 import com.qianjisan.system.request.SysConfigQueryRequest;
 import com.qianjisan.system.request.SysConfigRequest;
-import com.qianjisan.common.vo.PageVO;
+import com.qianjisan.core.PageVO;
 import com.qianjisan.system.vo.SysConfigVO;
 import com.qianjisan.system.vo.SysFieldConfigVO;
 import com.qianjisan.system.mapper.SysFieldConfigMapper;

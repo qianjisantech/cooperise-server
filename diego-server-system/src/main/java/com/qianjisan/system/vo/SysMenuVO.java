@@ -1,6 +1,7 @@
 package com.qianjisan.system.vo;
 
-import com.qianjisan.common.vo.BaseVO;
+
+import com.qianjisan.core.BaseVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,11 +1,11 @@
 package com.qianjisan.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.qianjisan.common.Result;
+import com.qianjisan.core.Result;
 import com.qianjisan.system.request.AssignPermissionRequest;
 import com.qianjisan.system.request.SysRoleQueryRequest;
 import com.qianjisan.system.request.SysRoleRequest;
-import com.qianjisan.common.vo.PageVO;
+import com.qianjisan.core.PageVO;
 import com.qianjisan.system.vo.SysRoleVO;
 import com.qianjisan.system.service.ISysRoleService;
 import io.swagger.v3.oas.annotations.Operation;

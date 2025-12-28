@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qianjisan.core.PageVO;
 import com.qianjisan.system.entity.SysUser;
 import com.qianjisan.system.request.SysUserQueryRequest;
 import com.qianjisan.system.request.SysUserRequest;
-import com.qianjisan.common.vo.PageVO;
+
 import com.qianjisan.system.vo.SysRoleVO;
 import com.qianjisan.system.vo.SysUserVO;
 import com.qianjisan.system.entity.SysRole;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
  * @author DCP Team
  * @since 2024-12-20
  */
-@Service("legacyUserServiceImpl")
+@Service
 @RequiredArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
@@ -235,13 +236,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setId(userId);
         sysUser.setLastLoginTime(java.time.LocalDateTime.now());
         this.updateById(sysUser);
-    }
-
-    @Override
-    public SysUser getUserByName(String name) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUserCode, name);
-        return this.getOne(queryWrapper);
     }
 
     @Override
