@@ -45,8 +45,9 @@ COPY diego-server-auth/src        /app/diego-server-auth/src
 COPY diego-server-console/src     /app/diego-server-console/src
 COPY diego-server-admin/src       /app/diego-server-admin/src
 # 执行代码编译命令，跳过测试以加快构建速度
+# 使用 install 而不是 package，确保父模块先被安装到本地仓库
 # 定义revision属性以解决版本变量解析问题
-RUN mvn -f /app/pom.xml clean package -DskipTests -B -Drevision=1.0.0-SNAPSHOT
+RUN mvn -f /app/pom.xml clean install -DskipTests -B -Drevision=1.0.0-SNAPSHOT
 
 # ================================
 # Stage 2: 运行阶段
