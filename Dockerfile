@@ -26,7 +26,7 @@ COPY pom.xml /app/
 COPY diego-server-common/pom.xml       /app/diego-server-common/
 COPY diego-server-admin/pom.xml        /app/diego-server-admin/
 COPY diego-server-auth/pom.xml         /app/diego-server-auth/
-COPY diego-server-core/pom.xml         /app/ diego-server-core/
+COPY diego-server-core/pom.xml         /app/diego-server-core/
 COPY diego-server-enterprise/pom.xml   /app/diego-server-enterprise/
 COPY diego-server-system/pom.xml       /app/diego-server-system/
 # 下载依赖（利用 Docker 缓存层，只有 pom.xml 变化时才重新下载）
