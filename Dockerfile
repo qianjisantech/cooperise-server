@@ -77,7 +77,7 @@ RUN mkdir -p /app/logs /app/uploads && \
 # 暴露端口
 # 此处端口必须与「服务设置」-「流水线」以及「手动上传代码包」部署时填写的端口一致，否则会部署失败。
 # 应用运行在 80 端口（参见 application.yml）
-EXPOSE 80
+EXPOSE 443
 
 # JVM 参数配置
 ENV JAVA_OPTS="-Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
