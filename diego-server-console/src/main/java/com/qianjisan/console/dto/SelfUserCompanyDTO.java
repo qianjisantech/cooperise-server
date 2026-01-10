@@ -1,6 +1,8 @@
 package com.qianjisan.console.dto;
 
+import cn.hutool.core.date.DateTime;
 import lombok.Data;
+
 
 @Data
 public class SelfUserCompanyDTO {
@@ -12,4 +14,5 @@ public class SelfUserCompanyDTO {
     private String companyCode;
 
     private  Integer isDefault;
+    private DateTime createTime;
 }
