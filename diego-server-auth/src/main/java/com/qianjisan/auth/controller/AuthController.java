@@ -4,6 +4,7 @@ import com.qianjisan.auth.service.IAuthService;
 import com.qianjisan.core.Result;
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.system.vo.SysUserProfileVO;
+import com.qianjisan.system.vo.UserInfoVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import com.qianjisan.auth.request.LoginRequest;
 import com.qianjisan.auth.vo.LoginResponseVO;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -60,8 +62,29 @@ public class AuthController {
     @GetMapping("/profile")
     public Result<SysUserProfileVO> getProfile() {
         try {
-            // 从 ThreadLocal 获取当前用户信息
+            // 【权限放开模式】从 ThreadLocal 获取当前用户信息
             Long userId = UserContextHolder.getUserId();
+
+            // 如果没有用户信息（权限放开模式），返回默认的profile信息
+            if (userId == null) {
+                log.info("[获取用户权限信息] 权限放开模式，返回默认用户信息");
+                SysUserProfileVO defaultProfile = new SysUserProfileVO();
+
+                // 设置默认用户信息（访客模式）
+                UserInfoVO defaultUserInfo = new UserInfoVO();
+                defaultUserInfo.setId(0L);
+                defaultUserInfo.setName("访客用户");
+                defaultUserInfo.setUserCode("guest");
+                defaultUserInfo.setEmail("guest@example.com");
+                defaultProfile.setUserInfo(defaultUserInfo);
+
+                // 设置默认权限（空权限）
+                defaultProfile.setMenus(new ArrayList<>());
+                defaultProfile.setMenuPermissions(new String[]{});
+                defaultProfile.setRoles(new String[]{"guest"});
+
+                return Result.success("权限放开模式，访客访问", defaultProfile);
+            }
 
             log.info("[获取用户权限信息] 用户ID: {}", userId);
             SysUserProfileVO profile = authService.getUserProfile(userId);

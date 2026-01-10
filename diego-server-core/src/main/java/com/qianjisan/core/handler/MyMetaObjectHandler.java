@@ -70,17 +70,17 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         // 从用户上下文获取当前登录用户信息
         Long userId = UserContextHolder.getUserId();
         String username = UserContextHolder.getUsername();
-        String nickname = UserContextHolder.getUserCode();
+        String userCode = UserContextHolder.getUserCode();
 
         if (userId != null) {
             // 填充更新人ID
             this.strictUpdateFill(metaObject, "updateById", Long.class, userId);
             // 填充更新人用户名
-            this.strictUpdateFill(metaObject, "updateByCode", String.class, username);
+            this.strictUpdateFill(metaObject, "updateByCode", String.class, userCode);
             // 填充更新人昵称
-            this.strictUpdateFill(metaObject, "updateByName", String.class, nickname);
+            this.strictUpdateFill(metaObject, "updateByName", String.class, username);
 
-            log.debug("更新填充完成 - 用户ID: {}, 用户名: {}, 昵称: {}", userId, username, nickname);
+            log.debug("更新填充完成 - 用户ID: {}, 用户名: {}, 用户编码: {}", userId, username, userCode);
         } else {
             // 用户上下文为空（可能是登录前操作），记录调试信息但不警告
             log.debug("用户上下文为空，无法填充更新人信息（可能为登录前操作）");

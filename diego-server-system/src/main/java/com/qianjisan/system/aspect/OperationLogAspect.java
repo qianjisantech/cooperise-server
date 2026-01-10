@@ -1,6 +1,7 @@
 package com.qianjisan.system.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.core.utils.JwtUtil;
 import com.qianjisan.system.entity.SysOperationLog;
 import com.qianjisan.system.service.ISysOperationLogService;
@@ -79,18 +80,32 @@ public class OperationLogAspect {
         sysOperationLog.setIpAddress(getIpAddress(request));
         sysOperationLog.setUserAgent(request.getHeader("User-Agent"));
 
-        // 从token中获取用户信息
+        // 【权限放开模式】从token或UserContext中获取用户信息
         String token = getTokenFromRequest(request);
         if (StringUtils.hasText(token)) {
             try {
                 Long userId = JwtUtil.getUserId(token);
                 String username = JwtUtil.getUsername(token);
+                String userCode = JwtUtil.getNickname(token); // 获取用户编码
+
                 sysOperationLog.setUserId(userId);
                 sysOperationLog.setUsername(username);
                 log.info("从Token获取用户信息: userId={}, username={}", userId, username);
+
+                // 【关键修复】在权限放开模式下，将解析到的用户信息设置到UserContextHolder
+                // 这样后续接口调用时就能获取到用户信息了
+                UserContextHolder.setUser(userId, username, userCode);
+                log.debug("已将token用户信息设置到UserContextHolder: userId={}, username={}, userCode={}",
+                         userId, username, userCode);
+
             } catch (Exception e) {
                 log.warn("从Token解析用户信息失败: {}", e.getMessage());
+                // Token解析失败，尝试从UserContext获取
+                setUserInfoFromContext(sysOperationLog);
             }
+        } else {
+            // 没有token，从UserContext获取（权限放开模式）
+            setUserInfoFromContext(sysOperationLog);
         }
 
         // 获取请求参数
@@ -257,5 +272,31 @@ public class OperationLogAspect {
         return arg instanceof HttpServletRequest
             || arg instanceof HttpServletResponse
             || arg instanceof HttpSession;
+    }
+
+    /**
+     * 从UserContext中获取用户信息（权限放开模式）
+     */
+    private void setUserInfoFromContext(SysOperationLog sysOperationLog) {
+        try {
+            Long userId = UserContextHolder.getUserId();
+            String username = UserContextHolder.getUsername();
+
+            if (userId != null) {
+                sysOperationLog.setUserId(userId);
+                sysOperationLog.setUsername(username);
+                log.info("从UserContext获取用户信息: userId={}, username={}", userId, username);
+            } else {
+                // 权限放开模式，没有用户信息
+                sysOperationLog.setUserId(0L);
+                sysOperationLog.setUsername("访客用户");
+                log.info("权限放开模式，使用默认用户信息记录操作日志");
+            }
+        } catch (Exception e) {
+            log.warn("从UserContext获取用户信息失败: {}", e.getMessage());
+            // 设置默认值
+            sysOperationLog.setUserId(0L);
+            sysOperationLog.setUsername("未知用户");
+        }
     }
 }
