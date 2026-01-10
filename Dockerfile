@@ -71,7 +71,7 @@ RUN mkdir -p /app/logs /app/uploads && \
     chown -R appuser:appgroup /app
 
 
-EXPOSE 443
+EXPOSE 80
 
 # JVM 参数配置
 ENV JAVA_OPTS="-Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
