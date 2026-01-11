@@ -3,6 +3,7 @@ package com.qianjisan.console.service;
 import com.qianjisan.console.request.SelfCompanyRequest;
 import com.qianjisan.console.vo.SelfCompanyInviteInfoVo;
 import com.qianjisan.console.vo.SelfCompanyVo;
+import com.qianjisan.console.vo.UserQuerySelectOptionVo;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ISelfService {
     void setCompanyActive(Long companyId);
 
     SelfCompanyInviteInfoVo selfCompanyInviteInfo(Long companyId);
+
+    List<UserQuerySelectOptionVo> userQuerySelect(Long companyId);
 }

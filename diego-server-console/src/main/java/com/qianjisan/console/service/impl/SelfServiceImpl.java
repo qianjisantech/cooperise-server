@@ -10,12 +10,15 @@ import com.qianjisan.console.service.ISelfService;
 import com.qianjisan.console.service.IUserCompanyService;
 import com.qianjisan.console.vo.SelfCompanyInviteInfoVo;
 import com.qianjisan.console.vo.SelfCompanyVo;
+import com.qianjisan.console.vo.UserQuerySelectOptionVo;
 import com.qianjisan.core.context.UserContext;
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.core.exception.BusinessException;
 import com.qianjisan.core.utils.SnowflakeIdGenerator;
 import com.qianjisan.enterprise.entity.Company;
 import com.qianjisan.enterprise.mapper.CompanyMapper;
+import com.qianjisan.system.entity.SysUser;
+import com.qianjisan.system.mapper.SysUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,8 @@ public class SelfServiceImpl implements ISelfService {
     private  final UserCompanyMapper userCompanyMapper;
 
     private  final CompanyMapper companyMapper;
+    private final SysUserMapper sysUserMapper;
+
     @Override
     public List<SelfCompanyVo> getSelfCompanies(Long userId) {
         List<SelfUserCompanyDTO> companies = userCompanyService.getCompaniesByUserId(userId);
@@ -161,6 +166,28 @@ public class SelfServiceImpl implements ISelfService {
 
 
         return selfCompanyInviteInfoVo;
+    }
+
+    @Override
+    public List<UserQuerySelectOptionVo> userQuerySelect(Long companyId) {
+
+        List<Long> userIds = userCompanyMapper.selectUserIdsByCompanyId(companyId);
+        List<SysUser> sysUsers = sysUserMapper.selectBatchIds(userIds);
+        if (CollectionUtil.isEmpty(sysUsers)) {
+            return List.of();
+        }else {
+         return    sysUsers.stream().map(sysUser -> {
+             UserQuerySelectOptionVo userQuerySelectOptionVo = new UserQuerySelectOptionVo();
+             userQuerySelectOptionVo.setId(sysUser.getId());
+             userQuerySelectOptionVo.setUserCode(sysUser.getUserCode());
+             userQuerySelectOptionVo.setPhone(sysUser.getPhone());
+             userQuerySelectOptionVo.setEmail(sysUser.getEmail());
+             userQuerySelectOptionVo.setAvatar(sysUser.getAvatar());
+             userQuerySelectOptionVo.setName(sysUser.getName());
+             return userQuerySelectOptionVo;
+       }).collect(Collectors.toList());
+        }
+
     }
 
 

@@ -5,6 +5,7 @@ import com.qianjisan.console.service.ISelfService;
 import com.qianjisan.console.vo.SelfCompanyInviteInfoVo;
 import com.qianjisan.console.vo.SelfCompanyVo;
 
+import com.qianjisan.console.vo.UserQuerySelectOptionVo;
 import com.qianjisan.core.Result;
 import com.qianjisan.core.context.UserContextHolder;
 import io.swagger.v3.oas.annotations.Operation;
@@ -79,6 +80,17 @@ public class SelfController {
         try {
             SelfCompanyInviteInfoVo selfCompanyInviteInfoVo=  selfService.selfCompanyInviteInfo(companyId);
             return Result.success(selfCompanyInviteInfoVo);
+        } catch (Exception e) {
+            log.error("用户邀请加入企业相关信息", e);
+            return Result.error(e.getMessage());
+        }
+    }
+    @Operation(summary = "用户邀请加入企业相关信息")
+    @GetMapping(value = "/user/select/options/{companyId}")
+    public Result<List<UserQuerySelectOptionVo>> userQuerySelect(@Valid @PathVariable Long companyId) {
+        try {
+            List<UserQuerySelectOptionVo> userQuerySelect=  selfService.userQuerySelect(companyId);
+            return Result.success(userQuerySelect);
         } catch (Exception e) {
             log.error("用户邀请加入企业相关信息", e);
             return Result.error(e.getMessage());
