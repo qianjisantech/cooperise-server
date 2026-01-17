@@ -8,14 +8,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.2.0</version>
         <relativePath/>
     </parent>
 
     <groupId>com.qianjisan</groupId>
     <artifactId>cooperise-server</artifactId>
     <version>${revision}</version>
-    <name>cooperise-server</name>
+    <name>diego-server</name>
     <description>需求管理系统后端服务</description>
     <packaging>pom</packaging>
 
@@ -31,17 +31,17 @@
 
     <properties>
         <!-- 版本统一管理 -->
-        <revision>1.0.0-release</revision>
+        <revision>1.0.0-SNAPSHOT</revision>
 
         <!-- Java版本 -->
-        <java.version>8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- 依赖版本 -->
-        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <druid.version>1.2.20</druid.version>
         <jwt.version>0.12.3</jwt.version>
         <hutool.version>5.8.23</hutool.version>
@@ -58,41 +58,41 @@
 
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-admin</artifactId>
+                <artifactId>diego-server-admin</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-common</artifactId>
+                <artifactId>diego-server-common</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-core</artifactId>
+                <artifactId>diego-server-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-console</artifactId>
+                <artifactId>diego-server-console</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-system</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-enterprise</artifactId>
+                <artifactId>diego-server-system</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.qianjisan</groupId>
-                <artifactId>cooperise-server-auth</artifactId>
+                <artifactId>diego-server-enterprise</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.qianjisan</groupId>
+                <artifactId>diego-server-auth</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -110,10 +110,10 @@
                 <version>8.2.0</version>
             </dependency>
 
-            <!-- MyBatis Plus Boot Starter -->
+            <!-- MyBatis Plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
@@ -127,6 +127,12 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-jsqlparser-4.9</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- Druid Connection Pool -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
 
             <!-- JWT -->
@@ -179,8 +185,8 @@
             <!-- Knife4j API文档 -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>3.0.3</version>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <!-- Lombok -->
@@ -213,8 +219,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
+                        <source>17</source>
+                        <target>17</target>
                         <encoding>UTF-8</encoding>
                         <useIncrementalCompilation>false</useIncrementalCompilation>
                         <compilerArgs>

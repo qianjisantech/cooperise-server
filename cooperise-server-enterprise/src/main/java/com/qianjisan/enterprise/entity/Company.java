@@ -30,7 +30,7 @@ public class Company extends BaseEntity {
     @TableField("company_name")
     private String companyName;
 
-    /** 公司简�?*/
+    /** 公司简称 */
     @TableField("short_name")
     private String shortName;
 
@@ -39,7 +39,7 @@ public class Company extends BaseEntity {
     @TableField("description")
     private String description;
 
-    /** 联系�?*/
+    /** 联系人 */
     @TableField("contact_person")
     private String contactPerson;
 
@@ -55,7 +55,7 @@ public class Company extends BaseEntity {
     @TableField("address")
     private String address;
 
-    /** 状态：1-启用�?-禁用 */
+    /** 状态：1-启用，0-禁用 */
     @TableField("status")
     private Integer status;
 
@@ -64,7 +64,7 @@ public class Company extends BaseEntity {
     private String companySize;
 
 
-    /** 所属行�?*/
+    /** 所属行业 */
     @TableField("industry")
     private String industry;
 }

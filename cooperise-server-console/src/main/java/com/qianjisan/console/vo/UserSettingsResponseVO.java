@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * 用户设置完整响应VO
- * 包含账号信息、通知设置、系统设�?
+ * 包含账号信息、通知设置、系统设置
  *
  * @author DCP Team
  * @since 2024-12-20
@@ -26,7 +26,7 @@ public class UserSettingsResponseVO implements Serializable {
     private Long userId;
 
     /**
-     * 用户�?
+     * 用户名
      */
     private String username;
 
@@ -41,7 +41,7 @@ public class UserSettingsResponseVO implements Serializable {
     private String email;
 
     /**
-     * 手机�?
+     * 手机号
      */
     private String phone;
 
@@ -52,22 +52,22 @@ public class UserSettingsResponseVO implements Serializable {
 
     // ========== 通知设置 ==========
     /**
-     * 邮件通知开�?
+     * 邮件通知开关
      */
     private Boolean notificationEmail;
 
     /**
-     * 系统通知开�?
+     * 系统通知开关
      */
     private Boolean notificationSystem;
 
     /**
-     * 短信通知开�?
+     * 短信通知开关
      */
     private Boolean notificationSms;
 
     /**
-     * 应用内通知开�?
+     * 应用内通知开关
      */
     private Boolean notificationApp;
 
@@ -93,18 +93,18 @@ public class UserSettingsResponseVO implements Serializable {
     private String timezone;
 
     /**
-     * 主题�?
+     * 主题色
      */
     private String primaryColor;
 
     // ========== 安全设置 ==========
     /**
-     * 双重认证开�?
+     * 双重认证开关
      */
     private Boolean twoFactorEnabled;
 
     /**
-     * 最后登录时�?
+     * 最后登录时间
      */
     private LocalDateTime lastLoginTime;
 
