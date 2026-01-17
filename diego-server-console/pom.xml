@@ -7,11 +7,11 @@
 
     <parent>
         <groupId>com.qianjisan</groupId>
-        <artifactId>cooperise-server</artifactId>
+        <artifactId>diego-server</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>cooperise-server-console</artifactId>
+    <artifactId>diego-server-console</artifactId>
     <name>diego-server-console</name>
     <description>应用启动服务-管理各种模块</description>
 
@@ -21,13 +21,13 @@
         <!-- 依赖 rbac 模块 -->
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>cooperise-server-system</artifactId>
+            <artifactId>diego-server-system</artifactId>
         </dependency>
 
         <!-- 依赖 enterprise 模块 -->
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>cooperise-server-enterprise</artifactId>
+            <artifactId>diego-server-enterprise</artifactId>
         </dependency>
 
 
@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>cooperise-server-common</artifactId>
+            <artifactId>diego-server-common</artifactId>
         </dependency>
     </dependencies>
 
