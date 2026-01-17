@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Tag(name = "事项管理", description = "事项相关接口")
 @RestController
-@RequestMapping("/workspace/issue")
+@RequestMapping("/console/issue")
 @RequiredArgsConstructor
 @Slf4j
 public class IssueController {

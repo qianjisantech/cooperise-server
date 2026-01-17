@@ -61,6 +61,16 @@ spring:
       max-file-size: 50MB
       max-request-size: 100MB
 
+  # 验证配置
+  jpa:
+    properties:
+      hibernate:
+        validator:
+          apply_to_ddl: false
+  # 启用验证
+  validation:
+    enabled: true
+
 # MyBatis Plus配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
@@ -97,6 +107,7 @@ knife4j:
         api-rule-resources:
           - com.qianjisan.controller
           - com.qianjisan.system.controller
+          - com.qianjisan.enterprise.controller
           - qianjisan.controller
 
 # 日志配置（通过logback-spring.xml配置彩色日志）

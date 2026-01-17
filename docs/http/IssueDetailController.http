@@ -1,0 +1,119 @@
+### 事项详情管理接口
+
+@baseUrl = http://localhost
+
+### 分页查询事项详情
+POST {{baseUrl}}/console/issue-detail/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "companyId": null,
+  "companyCode": "",
+  "companyName": "",
+  "templateFieldId": null,
+  "valueString": "",
+  "valueJson": ""
+}
+
+### 获取事项详情
+GET {{baseUrl}}/console/issue-detail/1
+Authorization: Bearer {{token}}
+
+### 创建事项详情
+POST {{baseUrl}}/console/issue-detail
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "companyId": 1,
+  "companyCode": "COMP001",
+  "companyName": "示例公司",
+  "templateFieldId": 1,
+  "valueString": "示例值",
+  "valueJson": "{\"key\": \"value\"}"
+}
+
+### 更新事项详情
+PUT {{baseUrl}}/console/issue-detail/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "companyId": 1,
+  "companyCode": "COMP001",
+  "companyName": "示例公司",
+  "templateFieldId": 1,
+  "valueString": "更新后的值",
+  "valueJson": "{\"updated\": true, \"value\": \"new value\"}"
+}
+
+### 删除事项详情
+DELETE {{baseUrl}}/console/issue-detail/1
+Authorization: Bearer {{token}}
+
+### 根据企业ID查询事项详情列表
+GET {{baseUrl}}/console/issue-detail/company/1
+Authorization: Bearer {{token}}
+
+### 根据模板字段ID查询事项详情列表
+GET {{baseUrl}}/console/issue-detail/template-field/1
+Authorization: Bearer {{token}}
+
+### 查询特定企业的分页事项详情
+POST {{baseUrl}}/console/issue-detail/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "companyId": 1
+}
+
+### 查询特定模板字段的分页事项详情
+POST {{baseUrl}}/console/issue-detail/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "templateFieldId": 1
+}
+
+### 根据字符串值模糊查询事项详情
+POST {{baseUrl}}/console/issue-detail/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "valueString": "示例"
+}
+
+### 根据JSON值模糊查询事项详情
+POST {{baseUrl}}/console/issue-detail/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "valueJson": "value"
+}
+
+
+
+
+
+
+
+
+
+
+
+

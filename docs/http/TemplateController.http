@@ -1,0 +1,126 @@
+### 模板管理接口
+
+@baseUrl = http://localhost
+
+### 分页查询模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "code": "",
+  "name": "",
+  "description": "",
+  "companyId": 1,
+  "status": 1
+
+}
+
+### 获取模板详情
+GET {{baseUrl}}/enterprise/template/1
+Authorization: Bearer {{token}}
+
+### 创建模板
+@token = eyJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6ImFkbWluIiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Iui2hee6p-euoeeQhuWRmCIsInN1YiI6Iui2hee6p-euoeeQhuWRmCIsImlhdCI6MTc2ODY2NzM1NCwiZXhwIjoxNzY5MjcyMTU0fQ.ngoHZBRphTntET9lh72LiiZcQ0DuUITYoLw5_zRMg69QeOuuBuETRng_C9mjHBTtz3c768nupCnN896_3GDgfg
+POST {{baseUrl}}/enterprise/template
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "项目模板",
+  "description": "用于项目管理的模板",
+  "company_id": 1,
+  "company_code": "COMP001",
+  "company_name": "示例公司",
+  "status": 1,
+  "is_default": false
+}
+
+### 更新模板
+PUT {{baseUrl}}/enterprise/template/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "项目模板（已更新）",
+  "description": "用于项目管理的模板（已更新）",
+  "status": 1,
+  "company_id": 1,
+  "company_code": "COMP001",
+  "company_name": "示例公司",
+  "isDefault": false
+}
+
+### 删除模板
+DELETE {{baseUrl}}/enterprise/template/1
+Authorization: Bearer {{token}}
+
+### 查询特定企业的模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "companyId": 1,
+  "status": 1
+}
+
+### 查询默认模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "isDefault": true
+}
+
+### 根据编码查询模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "code": "PROJECT"
+}
+
+### 根据名称模糊查询模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "name": "项目"
+}
+
+### 查询禁用的模板
+POST {{baseUrl}}/enterprise/template/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "status": 0
+}
+
+
+
+
+
+
+
+
+
+
+
+

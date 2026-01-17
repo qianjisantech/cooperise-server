@@ -7,7 +7,7 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "2497822530@qq.com",
+  "email": "2497822530@qq.com",
   "password": "123456"
 }
 

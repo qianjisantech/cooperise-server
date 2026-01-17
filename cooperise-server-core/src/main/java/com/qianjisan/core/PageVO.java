@@ -40,15 +40,6 @@ public class PageVO<T> {
      */
     private Long pages;
 
-    /**
-     * 是否有上一页
-     */
-    private Boolean hasPrevious;
-
-    /**
-     * 是否有下一页
-     */
-    private Boolean hasNext;
 
     /**
      * 从 MyBatis-Plus 的 Page 对象转换
@@ -64,8 +55,6 @@ public class PageVO<T> {
         pageVO.setSize(page.getSize());
         pageVO.setCurrent(page.getCurrent());
         pageVO.setPages(page.getPages());
-        pageVO.setHasPrevious(page.hasPrevious());
-        pageVO.setHasNext(page.hasNext());
         return pageVO;
     }
 }

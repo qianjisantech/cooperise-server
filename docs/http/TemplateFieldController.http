@@ -1,0 +1,190 @@
+### 模板字段管理接口
+### 注意：field_default_value 字段必须是有效的 JSON 格式，否则会验证失败
+### 例如：字符串使用双引号，对象使用 {}，数组使用 []
+
+@baseUrl = http://localhost
+@token = eyJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6ImFkbWluIiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Iui2hee6p-euoeeQhuWRmCIsInN1YiI6Iui2hee6p-euoeeQhuWRmCIsImlhdCI6MTc2ODY2NzM1NCwiZXhwIjoxNzY5MjcyMTU0fQ.ngoHZBRphTntET9lh72LiiZcQ0DuUITYoLw5_zRMg69QeOuuBuETRng_C9mjHBTtz3c768nupCnN896_3GDgfg
+
+### 批量保存模板字段
+POST {{baseUrl}}/enterprise/template-field/save
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "templateId": "1",
+  "fields": [
+    {
+      "id": null,
+      "fieldCode": "title",
+      "fieldName": "标题",
+      "fieldType": "text",
+      "fieldDefaultValue": "",
+      "isEdit": 1,
+      "isRequired": 1,
+      "promptContent": "请输入标题",
+      "sort": 1,
+      "position": "header",
+      "status": 1
+    },
+    {
+      "id": null,
+      "fieldCode": "description",
+      "fieldName": "描述",
+      "fieldType": "textarea",
+      "fieldDefaultValue": "",
+      "isEdit": 1,
+      "isRequired": 0,
+      "promptContent": "请输入描述",
+      "sort": 2,
+      "position": "body",
+      "status": 1
+    }
+  ]
+}
+
+### 批量保存模板字段（新增+更新混合）
+POST {{baseUrl}}/enterprise/template-field/save
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+### 分页查询模板字段
+POST {{baseUrl}}/enterprise/template-field/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "templateId": "",
+  "fieldName": "",
+  "fieldCode": "",
+  "fieldType": "",
+  "isEdit": null,
+  "isRequired": null,
+  "status": null,
+  "position": ""
+}
+
+### 获取模板字段详情
+GET {{baseUrl}}/enterprise/template-field/1
+Authorization: Bearer {{token}}
+
+### 根据模板ID查询字段列表
+GET {{baseUrl}}/enterprise/template-field/template/1
+Authorization: Bearer {{token}}
+
+### 批量保存模板字段
+POST {{baseUrl}}/enterprise/template-field/save
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "template_id": "1",
+  "fields": [
+    {
+      "id": 44,
+      "field_code": "sprint",
+      "field_name": "版本",
+      "field_type": "select",
+      "field_default_value": "{\"defaultValue\": \"请选择版本\"}",
+      "is_edit": 1,
+      "is_required": 1,
+      "prompt_content": "请输入标题",
+      "sort": 1,
+      "position": "header"
+    },
+    {
+      "id": 43,
+      "field_code": "title",
+      "field_name": "标题",
+      "field_type": "text",
+      "field_default_value": "\"默认标题\"",
+      "is_edit": 1,
+      "is_required": 1,
+      "prompt_content": "请输入标题",
+      "sort": 1,
+      "position": "header"
+    }
+  ]
+}
+
+### 更新模板字段
+PUT {{baseUrl}}/enterprise/template-field/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "templateId": "template_123",
+  "fieldCode": "title_updated",
+  "fieldName": "标题（已更新）",
+  "fieldType": "text",
+  "fieldDefaultValue": "默认标题",
+  "isEdit": 1,
+  "isRequired": 1,
+  "promptContent": "请输入标题（必填）",
+  "sort": 1,
+  "position": "header",
+  "status": 1
+}
+
+### 删除模板字段
+DELETE {{baseUrl}}/enterprise/template-field/1
+Authorization: Bearer {{token}}
+
+### 查询文本类型的字段
+POST {{baseUrl}}/enterprise/template-field/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "fieldType": "text"
+}
+
+### 查询必填字段
+POST {{baseUrl}}/enterprise/template-field/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "isRequired": 1
+}
+
+### 查询可编辑的字段
+POST {{baseUrl}}/enterprise/template-field/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "isEdit": 1
+}
+
+### 查询禁用的字段
+POST {{baseUrl}}/enterprise/template-field/page
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current": 1,
+  "size": 10,
+  "status": 0
+}
+
+
+
+
+
+
+
+
+
+
+
+

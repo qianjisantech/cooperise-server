@@ -1,4 +1,4 @@
-package com.qianjisan.console.vo;
+package com.qianjisan.enterprise.vo;
 
 import lombok.Data;
 
@@ -6,17 +6,32 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * IssueDetail 返回体 (VO)
+ * Template 返回体 (VO)
  */
 @Data
-public class IssueDetailVO implements Serializable {
+public class TemplateVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 事项ID
+     * 事项模板ID
      */
     private Long id;
+
+    /**
+     * 事项模板编码
+     */
+    private String code;
+
+    /**
+     * 事项模板名称
+     */
+    private String name;
+
+    /**
+     * 模板描述
+     */
+    private String description;
 
     /**
      * 企业id
@@ -24,14 +39,19 @@ public class IssueDetailVO implements Serializable {
     private Long companyId;
 
     /**
+     * 企业编码
+     */
+    private String companyCode;
+
+    /**
      * 企业名称
      */
     private String companyName;
 
     /**
-     * 企业编码
+     * 状态：1-启用 0-禁用
      */
-    private String companyCode;
+    private Byte status;
 
     /**
      * 创建时间
@@ -74,17 +94,7 @@ public class IssueDetailVO implements Serializable {
     private String updateByName;
 
     /**
-     * 模板字段id
+     * 是否默认模板   1是 0否
      */
-    private Long templateFieldId;
-
-    /**
-     * 模板值
-     */
-    private String valueString;
-
-    /**
-     * 模板值json
-     */
-    private String valueJson;
+    private Boolean isDefault;
 }

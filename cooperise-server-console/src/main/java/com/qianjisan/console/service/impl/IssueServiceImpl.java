@@ -249,8 +249,6 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         pageVO.setSize(entityPage.getSize());
         pageVO.setCurrent(entityPage.getCurrent());
         pageVO.setPages(entityPage.getPages());
-        pageVO.setHasPrevious(entityPage.hasPrevious());
-        pageVO.setHasNext(entityPage.hasNext());
         return pageVO;
     }
 
