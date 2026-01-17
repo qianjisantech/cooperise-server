@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.qianjisan</groupId>
-        <artifactId>diego-server</artifactId>
+        <artifactId>cooperise-server</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>diego-server-auth</artifactId>
+    <artifactId>cooperise-server-auth</artifactId>
 
     <description>认证服务模块</description>
-    <name>diego-server-auth</name>
+    <name>cooperise-server-auth</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,11 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>diego-server-common</artifactId>
+            <artifactId>cooperise-server-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>diego-server-console</artifactId>
+            <artifactId>cooperise-server-console</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

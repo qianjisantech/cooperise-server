@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.qianjisan</groupId>
-        <artifactId>diego-server</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>cooperise-server</artifactId>
+        <version>1.0.0-release</version>
     </parent>
 
-    <artifactId>diego-server-enterprise</artifactId>
+    <artifactId>cooperise-server-enterprise</artifactId>
     <packaging>jar</packaging>
 
-    <name>diego-server-enterprise</name>
+    <name>cooperise-server-enterprise</name>
     <description>企业后台管理模块</description>
 
     <properties>
@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>diego-server-core</artifactId>
+            <artifactId>cooperise-server-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

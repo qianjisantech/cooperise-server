@@ -7,19 +7,19 @@
 
     <parent>
         <groupId>com.qianjisan</groupId>
-        <artifactId>diego-server</artifactId>
+        <artifactId>cooperise-server</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>diego-server-common</artifactId>
-    <name>diego-server-common</name>
+    <artifactId>cooperise-server-common</artifactId>
+    <name>cooperise-server-common</name>
     <description>公共服务模块</description>
 
     <dependencies>
 
         <dependency>
             <groupId>com.qianjisan</groupId>
-            <artifactId>diego-server-core</artifactId>
+            <artifactId>cooperise-server-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
