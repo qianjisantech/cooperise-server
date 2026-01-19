@@ -63,7 +63,6 @@ public class BatchSaveTemplateFieldRequest implements Serializable {
 
         private Integer sort;
 
-        private String position;
 
         /**
          * 状态：1-启用 0-禁用，默认启用

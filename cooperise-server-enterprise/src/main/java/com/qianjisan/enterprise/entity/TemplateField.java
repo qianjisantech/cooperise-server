@@ -145,9 +145,5 @@ public class TemplateField implements Serializable {
     @TableField("sort")
     private Integer sort;
 
-    /**
-     * 位置
-     */
-    @TableField("position")
-    private String position;
+
 }

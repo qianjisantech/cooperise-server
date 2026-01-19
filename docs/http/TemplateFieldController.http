@@ -23,7 +23,6 @@ Authorization: Bearer {{token}}
       "isRequired": 1,
       "promptContent": "请输入标题",
       "sort": 1,
-      "position": "header",
       "status": 1
     },
     {
@@ -36,7 +35,6 @@ Authorization: Bearer {{token}}
       "isRequired": 0,
       "promptContent": "请输入描述",
       "sort": 2,
-      "position": "body",
       "status": 1
     }
   ]
@@ -70,8 +68,7 @@ Authorization: Bearer {{token}}
       "is_edit": 1,
       "is_required": 1,
       "prompt_content": "请输入标题",
-      "sort": 1,
-      "position": "header"
+      "sort": 1
     },
     {
       "id": 43,
@@ -82,8 +79,8 @@ Authorization: Bearer {{token}}
       "is_edit": 1,
       "is_required": 1,
       "prompt_content": "请输入标题",
-      "sort": 1,
-      "position": "header"
+      "sort": 1
+
     }
   ]
 }
@@ -103,7 +100,6 @@ Authorization: Bearer {{token}}
   "isRequired": 1,
   "promptContent": "请输入标题（必填）",
   "sort": 1,
-  "position": "header",
   "status": 1
 }
 

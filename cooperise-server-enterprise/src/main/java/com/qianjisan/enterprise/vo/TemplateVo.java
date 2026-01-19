@@ -114,10 +114,6 @@ public class TemplateVo implements Serializable {
          */
         private Integer sort;
 
-        /**
-         * 位置
-         */
-        private String position;
 
     }
 }

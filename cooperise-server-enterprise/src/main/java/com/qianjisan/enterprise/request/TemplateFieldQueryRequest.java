@@ -56,8 +56,5 @@ public class TemplateFieldQueryRequest implements Serializable {
      */
     private Integer status;
 
-    /**
-     * 位置
-     */
-    private String position;
+
 }
