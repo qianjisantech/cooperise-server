@@ -23,12 +23,11 @@
         <result column="is_required" property="isRequired" />
         <result column="prompt_content" property="promptContent" />
         <result column="sort" property="sort" />
-        <result column="position" property="position" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, template_id, create_time, update_time, is_deleted, create_by_id, create_by_code, create_by_name, update_by_id, update_by_code, update_by_name, field_name, field_code, field_type, field_default_value, is_edit, is_required, prompt_content, sort, position
+        id, template_id, create_time, update_time, is_deleted, create_by_id, create_by_code, create_by_name, update_by_id, update_by_code, update_by_name, field_name, field_code, field_type, field_default_value, is_edit, is_required, prompt_content, sort
     </sql>
 
 </mapper>
