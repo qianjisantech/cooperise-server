@@ -53,8 +53,8 @@ public class Template implements Serializable {
     /**
      * 企业id
      */
-    @TableField("company_id")
-    private Long companyId;
+    @TableField("enterprise_id")
+    private Long enterpriseId;
 
     /**
      * 企业编码

@@ -2,15 +2,13 @@ package com.qianjisan.console.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.qianjisan.enterprise.dto.SelfUserEnterpriseDTO;
+import com.qianjisan.enterprise.dto.UserMyEnterpriseDTO;
 import com.qianjisan.enterprise.entity.UserEnterprise;
 import com.qianjisan.enterprise.mapper.UserEnterpriseMapper;
 import com.qianjisan.console.request.MyEnterpriseRequest;
 import com.qianjisan.console.service.IMyEnterpriseService;
-import com.qianjisan.console.vo.EnterpriseInviteInfoVo;
 import com.qianjisan.console.vo.EnterpriseVo;
 import com.qianjisan.console.vo.UserQuerySelectOptionVo;
-import com.qianjisan.core.context.UserContext;
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.core.exception.BusinessException;
 import com.qianjisan.core.utils.SnowflakeIdGenerator;
@@ -38,16 +36,16 @@ public class MyEnterpriseServiceImpl implements IMyEnterpriseService {
 
     @Override
     public List<EnterpriseVo> getMyEnterpriseList(Long userId) {
-        List<SelfUserEnterpriseDTO> companies = userEnterpriseMapper.selectEnterprisesByUserId(userId);
+        List<UserMyEnterpriseDTO> companies = userEnterpriseMapper.selectEnterprisesByUserId(userId);
         if (CollectionUtil.isEmpty(companies)) {
             return Collections.emptyList();
         }
 
         return companies.stream()
                 .sorted(Comparator
-                        .comparing((SelfUserEnterpriseDTO dto) -> dto.getIsDefault() ==1,
+                        .comparing((UserMyEnterpriseDTO dto) -> dto.getIsDefault() ==1,
                                 Comparator.reverseOrder())
-                        .thenComparing(SelfUserEnterpriseDTO::getCreateTime,
+                        .thenComparing(UserMyEnterpriseDTO::getCreateTime,
                                 Comparator.nullsLast(Comparator.naturalOrder())))
                 .map(dto -> {
                     EnterpriseVo vo = new EnterpriseVo();

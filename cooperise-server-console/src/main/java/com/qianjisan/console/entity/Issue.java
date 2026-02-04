@@ -34,8 +34,8 @@ public class Issue extends BaseEntity {
     /**
      * 所属企业ID
      */
-    @TableField("company_id")
-    private Long companyId;
+    @TableField("enterprise_id")
+    private Long enterpriseId;
 
     /**
      * 企业名称（冗余字段，便于查询）

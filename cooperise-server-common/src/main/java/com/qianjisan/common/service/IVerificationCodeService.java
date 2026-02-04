@@ -1,4 +1,4 @@
-package com.qianjisan.auth.service;
+package com.qianjisan.common.service;
 
 /**
  * 验证码服务接口

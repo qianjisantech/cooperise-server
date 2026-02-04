@@ -38,8 +38,8 @@ public class IssueDetail implements Serializable {
     /**
      * 企业id
      */
-    @TableField("company_id")
-    private Long companyId;
+    @TableField("enterprise_id")
+    private Long enterpriseId;
 
     /**
      * 企业名称

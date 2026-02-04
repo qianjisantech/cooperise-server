@@ -1,5 +1,6 @@
 package com.qianjisan.auth.controller;
 import com.qianjisan.auth.service.IAuthService;
+import com.qianjisan.auth.service.ProfileService;
 import com.qianjisan.auth.vo.UserProfileVO;
 import com.qianjisan.core.Result;
 import com.qianjisan.core.context.UserContextHolder;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 @Slf4j
 public class ProfileController {
 
-    private final IAuthService authService;
+    private final ProfileService profileService;
 
 
     @Operation(summary = "获取用户权限信息")
@@ -44,7 +45,7 @@ public class ProfileController {
             }
 
             log.info("[获取用户权限信息] 用户ID: {}", userId);
-            UserProfileVO profile = authService.getUserProfile(userId);
+            UserProfileVO profile = profileService.getUserProfile(userId);
             log.info("[获取用户权限信息] 成功");
             return Result.success(profile);
         } catch (Exception e) {

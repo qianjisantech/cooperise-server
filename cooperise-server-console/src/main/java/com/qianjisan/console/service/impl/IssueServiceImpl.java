@@ -52,7 +52,6 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         // 1. 处理企业信息
         if (request.getSpace() != null) {
             IssueRequest.SpaceInfo space = request.getSpace();
-            workspaceIssue.setCompanyId(space.getSpaceId());
             workspaceIssue.setCompanyName(space.getSpaceName());
             workspaceIssue.setCompanyCode(space.getSpaceKeyword());
 
@@ -127,7 +126,6 @@ public class IssueServiceImpl extends ServiceImpl<IssueMapper, Issue> implements
         // 1. 处理企业信息
         if (request.getSpace() != null) {
             IssueRequest.SpaceInfo space = request.getSpace();
-            workspaceIssue.setCompanyId(space.getSpaceId());
             workspaceIssue.setCompanyName(space.getSpaceName());
             workspaceIssue.setCompanyCode(space.getSpaceKeyword());
 

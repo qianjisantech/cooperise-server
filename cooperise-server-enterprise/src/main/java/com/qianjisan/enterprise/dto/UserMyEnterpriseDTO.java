@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class SelfUserEnterpriseDTO {
+public class UserMyEnterpriseDTO {
 
     private Long id;
 

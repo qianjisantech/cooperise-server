@@ -30,5 +30,5 @@ public class IssueItemTypeRequest implements Serializable {
     private Long departmentId;
 
     @NotNull(message = "企业ID不能为空")
-    private Long companyId;
+    private Long enterpriseId;
 }

@@ -1,11 +1,8 @@
 package com.qianjisan.auth.controller;
 
 import com.qianjisan.auth.request.RegisterRequest;
-import com.qianjisan.auth.request.SendCodeRequest;
 import com.qianjisan.auth.service.IAuthService;
-import com.qianjisan.auth.vo.UserProfileVO;
 import com.qianjisan.core.Result;
-import com.qianjisan.core.context.UserContextHolder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import com.qianjisan.auth.request.LoginRequest;
 import com.qianjisan.auth.vo.LoginResponseVO;
-import java.util.ArrayList;
 
 @Tag(name = "认证管理", description = "用户认证相关接口")
 @RestController
@@ -49,21 +45,6 @@ public class AuthController {
     }
 
 
-
-    @Operation(summary = "发送邮箱验证码")
-    @PostMapping("/send-code")
-    public Result<String> sendVerificationCode(@RequestBody @Valid SendCodeRequest request) {
-        try {
-            String email = request.getEmail();
-            log.info("[发送验证码] 邮箱: {}", email);
-            authService.sendVerificationCode(email);
-            log.info("[发送验证码] 成功");
-            return Result.success("发送验证码成功");
-        } catch (Exception e) {
-            log.error("[发送验证码] 失败，失败原因：{}", e.getMessage(), e);
-            return Result.error(e.getMessage());
-        }
-    }
 
     @Operation(summary = "用户注册")
     @PostMapping("/register")

@@ -31,6 +31,6 @@ public class IssueItemType extends BaseEntity {
     @TableField("department_id")
     private Long departmentId;
 
-    @TableField("company_id")
-    private Long companyId;
+    @TableField("enterprise_id")
+    private Long enterpriseId;
 }

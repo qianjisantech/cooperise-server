@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qianjisan.core.PageVO;
+import com.qianjisan.core.context.EnterpriseContextHolder;
 import com.qianjisan.core.context.UserContext;
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.enterprise.entity.IssueItemType;
@@ -25,6 +26,10 @@ public class IssueItemTypeServiceImpl extends ServiceImpl<IssueItemTypeMapper, I
     @Override
     public boolean createIssueItemType(IssueItemTypeRequest request) {
         IssueItemType entity = convertToEntity(request);
+        
+        // 从请求头获取企业ID
+        Long enterpriseId = EnterpriseContextHolder.getEnterpriseId();
+        entity.setEnterpriseId(enterpriseId);
 
         UserContext userContext = UserContextHolder.getUser();
         if (userContext != null) {
@@ -83,8 +88,10 @@ public class IssueItemTypeServiceImpl extends ServiceImpl<IssueItemTypeMapper, I
             wrapper.eq("department_id", request.getDepartmentId());
         }
 
-        if (request.getCompanyId() != null) {
-            wrapper.eq("company_id", request.getCompanyId());
+        // 从请求头获取企业ID，如果没有提供则使用请求参数中的企业ID
+        Long enterpriseId = EnterpriseContextHolder.getEnterprise().getEnterpriseId();
+        if (enterpriseId != null) {
+            wrapper.eq("enterprise_id", enterpriseId);
         }
 
         wrapper.orderByDesc("create_time");
@@ -109,7 +116,7 @@ public class IssueItemTypeServiceImpl extends ServiceImpl<IssueItemTypeMapper, I
         entity.setStatus(request.getStatus());
         entity.setDescription(request.getDescription());
         entity.setDepartmentId(request.getDepartmentId());
-        entity.setCompanyId(request.getCompanyId());
+        entity.setEnterpriseId(request.getEnterpriseId());
         return entity;
     }
 
@@ -123,7 +130,7 @@ public class IssueItemTypeServiceImpl extends ServiceImpl<IssueItemTypeMapper, I
         vo.setStatus(entity.getStatus());
         vo.setDescription(entity.getDescription());
         vo.setDepartmentId(entity.getDepartmentId());
-        vo.setCompanyId(entity.getCompanyId());
+        vo.setCompanyId(entity.getEnterpriseId());
         vo.setCreateTime(entity.getCreateTime());
         vo.setUpdateTime(entity.getUpdateTime());
         vo.setCreateByCode(entity.getCreateByCode());

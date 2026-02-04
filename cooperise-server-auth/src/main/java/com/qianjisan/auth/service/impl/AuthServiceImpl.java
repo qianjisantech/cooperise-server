@@ -3,17 +3,15 @@ package com.qianjisan.auth.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.qianjisan.auth.service.IAuthService;
-import com.qianjisan.auth.service.IVerificationCodeService;
+import com.qianjisan.common.service.IVerificationCodeService;
 import com.qianjisan.auth.vo.UserProfileVO;
-import com.qianjisan.enterprise.dto.SelfUserEnterpriseDTO;
+import com.qianjisan.enterprise.dto.UserMyEnterpriseDTO;
 import com.qianjisan.enterprise.mapper.UserEnterpriseMapper;
-
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.core.exception.BusinessException;
 import com.qianjisan.core.utils.BeanConverter;
 import com.qianjisan.core.utils.JwtUtil;
 import com.qianjisan.core.utils.UserCodeGenerator;
-
 import com.qianjisan.system.entity.SysUser;
 import com.qianjisan.system.service.ISysMenuService;
 import com.qianjisan.system.service.ISysUserService;
@@ -25,7 +23,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.qianjisan.auth.vo.LoginResponseVO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +40,6 @@ public class AuthServiceImpl implements IAuthService {
 
     private final ISysUserService userService;
     private final ISysMenuService menuService;
-    private final IAsyncEmailService asyncEmailService;
     private final IVerificationCodeService verificationCodeService;
     private final UserEnterpriseMapper userEnterpriseMapper;
 
@@ -94,28 +90,6 @@ public class AuthServiceImpl implements IAuthService {
         return response;
     }
 
-    @Override
-    public void sendVerificationCode(String email) {
-        log.info("[AuthService] 发送验证码到邮箱: {}", email);
-
-        // 验证邮箱格式
-        if (!StringUtils.hasText(email)) {
-            throw new BusinessException("邮箱不能为空");
-        }
-
-        String emailRegex = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-        if (!email.matches(emailRegex)) {
-            throw new BusinessException("邮箱格式不正确");
-        }
-
-        // 生成验证码
-        String code = verificationCodeService.generateCode(email);
-
-        // 调用独立的异步服务发送邮件（不阻塞主线程）
-        asyncEmailService.sendVerificationCodeAsync(email, code);
-
-        log.info("[AuthService] 验证码已生成，邮件正在后台发送");
-    }
 
     @Override
     public void register(String email, String code, String password) {
@@ -292,28 +266,28 @@ public class AuthServiceImpl implements IAuthService {
 
 
         try {
-            List<SelfUserEnterpriseDTO> selfUserCompanyDTOS = userEnterpriseMapper.selectEnterprisesByUserId(userId);
+            List<UserMyEnterpriseDTO> selfUserCompanyDTOS = userEnterpriseMapper.selectEnterprisesByUserId(userId);
             if (selfUserCompanyDTOS != null && !selfUserCompanyDTOS.isEmpty()) {
 
-                List<UserProfileVO.UserCompanyVo> companyVos = new ArrayList<>();
+                List<UserProfileVO.UserEnterpriseVo> companyVos = new ArrayList<>();
 
-                for (SelfUserEnterpriseDTO c : selfUserCompanyDTOS) {
-                    UserProfileVO.UserCompanyVo cv = new UserProfileVO.UserCompanyVo();
+                for (UserMyEnterpriseDTO c : selfUserCompanyDTOS) {
+                    UserProfileVO.UserEnterpriseVo cv = new UserProfileVO.UserEnterpriseVo();
                     cv.setId(c.getId());
-                    cv.setCompanyCode(c.getCode());
-                    cv.setCompanyName(c.getName());
+                    cv.setCode(c.getCode());
+                    cv.setName(c.getName());
                     cv.setIsDefault(c.getIsDefault() == 1);
                     companyVos.add(cv);
                 }
                 log.info("[AuthService] getUserProfile 查询用户企业成功，用户ID: {}, 企业列表为 {}", userId, companyVos);
-                profile.setCompanies(companyVos);
+                profile.setEnterprises(companyVos);
             } else {
-                profile.setCompanies(new ArrayList<>());
+                profile.setEnterprises(new ArrayList<>());
 
             }
         } catch (Exception e) {
             log.error("[AuthService] getUserProfile 查询用户企业失败，用户ID: {}, 错误: {}", userId, e.getMessage());
-            profile.setCompanies(new ArrayList<>());
+            profile.setEnterprises(new ArrayList<>());
 
         }
 

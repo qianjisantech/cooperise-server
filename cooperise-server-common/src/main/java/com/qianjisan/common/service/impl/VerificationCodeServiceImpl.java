@@ -1,6 +1,6 @@
-package com.qianjisan.auth.service.impl;
+package com.qianjisan.common.service.impl;
 
-import com.qianjisan.auth.service.IVerificationCodeService;
+import com.qianjisan.common.service.IVerificationCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

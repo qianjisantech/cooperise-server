@@ -21,12 +21,7 @@ public interface IAuthService {
      */
     LoginResponseVO login(String email, String password);
 
-    /**
-     * 发送邮箱验证码
-     *
-     * @param email 邮箱地址
-     */
-    void sendVerificationCode(String email);
+
 
     /**
      * 用户注册

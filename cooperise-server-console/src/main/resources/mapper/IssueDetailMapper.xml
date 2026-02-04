@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.qianjisan.console.entity.IssueDetail">
         <id column="id" property="id" />
-        <result column="company_id" property="companyId" />
         <result column="company_name" property="companyName" />
         <result column="company_code" property="companyCode" />
         <result column="create_time" property="createTime" />
@@ -24,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, company_id, company_name, company_code, create_time, update_time, is_deleted, create_by_id, create_by_code, create_by_name, update_by_id, update_by_code, update_by_name, template_field_id, value_string, value_json
+        id, enterprise_id, company_name, company_code, create_time, update_time, is_deleted, create_by_id, create_by_code, create_by_name, update_by_id, update_by_code, update_by_name, template_field_id, value_string, value_json
     </sql>
 
 </mapper>

@@ -1,6 +1,9 @@
 package com.qianjisan.common.service.impl;
 
+import com.qianjisan.common.service.IAsyncEmailService;
 import com.qianjisan.common.service.IEmailService;
+import com.qianjisan.common.service.IVerificationCodeService;
+import com.qianjisan.core.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.util.StringUtils;
 
 /**
  * 邮件服务实现类
@@ -24,6 +28,8 @@ import jakarta.mail.internet.MimeMessage;
 public class EmailServiceImpl implements IEmailService {
 
     private final JavaMailSender mailSender;
+
+    private  final IVerificationCodeService iVerificationCodeService;
 
     @Value("${spring.mail.username}")
     private String from;
@@ -65,10 +71,22 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     @Override
-    public void sendVerificationCode(String to, String code) {
-        String subject = "【DCP需求管理平台】验证码";
+    public void sendVerificationCode(String email) {
+        log.info("[EmailService] 发送验证码到邮箱: {}", email);
+
+
+        String emailRegex = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+        if (!email.matches(emailRegex)) {
+            throw new BusinessException("邮箱格式不正确");
+        }
+
+        // 生成验证码
+        String code = iVerificationCodeService.generateCode(email);
+
+        log.info("[AuthService] 验证码已生成，邮件正在后台发送");
+        String subject = "【Cooperise平台】验证码";
         String content = buildVerificationCodeHtml(code);
-        sendHtmlMail(to, subject, content);
+        sendHtmlMail(email, subject, content);
     }
 
     /**
@@ -85,21 +103,20 @@ public class EmailServiceImpl implements IEmailService {
                 "<body style='margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;'>" +
                 "    <div style='max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>" +
                 "        <!-- Header -->" +
-                "        <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center;'>" +
-                "            <h1 style='color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;'>DCP 需求管理平台</h1>" +
-                "            <p style='color: rgba(255,255,255,0.9); margin: 8px 0 0 0; font-size: 14px;'>Demand Control Platform</p>" +
+                "        <div style='background: #0052d9; padding: 30px; text-align: center;'>" +
+                "            <h1 style='color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;'>Cooperise</h1>" +
                 "        </div>" +
                 "        " +
                 "        <!-- Content -->" +
                 "        <div style='padding: 40px 30px;'>" +
                 "            <h2 style='color: #333333; font-size: 20px; margin: 0 0 20px 0;'>您的验证码</h2>" +
                 "            <p style='color: #666666; font-size: 14px; line-height: 1.6; margin: 0 0 30px 0;'>" +
-                "                您正在注册 DCP 需求管理平台账号，验证码如下：" +
+                "                您正在注册 Cooperise账号，验证码如下：" +
                 "            </p>" +
                 "            " +
                 "            <!-- Verification Code Box -->" +
-                "            <div style='background-color: #f8f9fa; border: 2px dashed #667eea; border-radius: 8px; padding: 30px; text-align: center; margin: 30px 0;'>" +
-                "                <div style='font-size: 36px; font-weight: 700; color: #667eea; letter-spacing: 8px; font-family: \"Courier New\", monospace;'>" +
+                "            <div style='background-color: #f8f9fa; border: 2px dashed #0052d9; border-radius: 8px; padding: 30px; text-align: center; margin: 30px 0;'>" +
+                "                <div style='font-size: 36px; font-weight: 700; color: #0052d9; letter-spacing: 8px; font-family: \"Courier New\", monospace;'>" +
                 "                    " + code +
                 "                </div>" +
                 "            </div>" +

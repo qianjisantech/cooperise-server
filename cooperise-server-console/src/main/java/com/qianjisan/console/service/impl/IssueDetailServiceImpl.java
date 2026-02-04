@@ -97,13 +97,13 @@ public class IssueDetailServiceImpl extends ServiceImpl<IssueDetailMapper, Issue
 
         IssueVO vo = BeanUtil.copyProperties(issueDetail, IssueVO.class);
 
-        // 查询相关的事项详情列表（根据企业ID查询同一企业的其他事项详情）
-        List<IssueVO> relatedIssueDetails = getIssueDetailsByCompanyId(issueDetail.getCompanyId());
-        // 过滤掉当前记录本身
-        relatedIssueDetails = relatedIssueDetails.stream()
-                .filter(item -> !item.getId().equals(id))
-                .collect(Collectors.toList());
-        vo.setIssueDetailList(relatedIssueDetails);
+//        // 查询相关的事项详情列表（根据企业ID查询同一企业的其他事项详情）
+//        List<IssueVO> relatedIssueDetails = getIssueDetailsByCompanyId(issueDetail.getCompanyId());
+//        // 过滤掉当前记录本身
+//        relatedIssueDetails = relatedIssueDetails.stream()
+//                .filter(item -> !item.getId().equals(id))
+//                .collect(Collectors.toList());
+//        vo.setIssueDetailList(relatedIssueDetails);
 
         return vo;
     }
@@ -111,11 +111,6 @@ public class IssueDetailServiceImpl extends ServiceImpl<IssueDetailMapper, Issue
     @Override
     public PageVO<IssueVO> getIssueDetailPage(IssueDetailQueryRequest request) {
         LambdaQueryWrapper<IssueDetail> queryWrapper = new LambdaQueryWrapper<>();
-
-        // 构建查询条件
-        if (request.getCompanyId() != null) {
-            queryWrapper.eq(IssueDetail::getCompanyId, request.getCompanyId());
-        }
         if (StringUtils.hasText(request.getCompanyCode())) {
             queryWrapper.eq(IssueDetail::getCompanyCode, request.getCompanyCode());
         }
@@ -152,8 +147,6 @@ public class IssueDetailServiceImpl extends ServiceImpl<IssueDetailMapper, Issue
     @Override
     public List<IssueVO> getIssueDetailsByCompanyId(Long companyId) {
         LambdaQueryWrapper<IssueDetail> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(IssueDetail::getCompanyId, companyId)
-                .orderByDesc(IssueDetail::getCreateTime);
 
         List<IssueDetail> issueDetails = this.list(queryWrapper);
         return BeanUtil.copyToList(issueDetails, IssueVO.class);

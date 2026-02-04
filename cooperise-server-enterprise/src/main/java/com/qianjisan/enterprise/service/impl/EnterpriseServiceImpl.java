@@ -112,6 +112,7 @@ public class EnterpriseServiceImpl extends ServiceImpl<EnterpriseMapper, Enterpr
         vo.setCode(enterprise.getCode());
         vo.setName(enterprise.getName());
         vo.setShortName(enterprise.getShortName());
+        vo.setDescription(enterprise.getDescription());
         return vo;
     }
 }

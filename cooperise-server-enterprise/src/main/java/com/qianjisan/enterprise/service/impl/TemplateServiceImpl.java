@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianjisan.core.PageVO;
+import com.qianjisan.core.context.EnterpriseContextHolder;
 import com.qianjisan.core.context.UserContextHolder;
 import com.qianjisan.core.exception.BusinessException;
 import com.qianjisan.enterprise.entity.Template;
@@ -48,7 +49,9 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
         template.setCode(IdUtil.getSnowflakeNextIdStr());
         template.setName(request.getName());
         template.setDescription(request.getDescription());
-        template.setCompanyId(request.getCompanyId());
+        
+        // 从请求头获取企业ID
+        Long enterpriseId = EnterpriseContextHolder.getEnterpriseId();
         template.setCompanyCode(request.getCompanyCode());
         template.setCompanyName(request.getCompanyName());
         template.setStatus(request.getStatus());
@@ -120,7 +123,6 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
         templateVo.setName(template.getName());
         templateVo.setCode(template.getCode());
         templateVo.setDescription(template.getDescription());
-        templateVo.setCompanyId(template.getCompanyId());
         templateVo.setCompanyCode(template.getCompanyCode());
         templateVo.setCompanyName(template.getCompanyName());
         templateVo.setStatus(template.getStatus());
@@ -162,9 +164,11 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
         if (StringUtils.hasText(request.getDescription())) {
             queryWrapper.like(Template::getDescription, request.getDescription());
         }
-        if (request.getCompanyId() != null) {
-            queryWrapper.eq(Template::getCompanyId, request.getCompanyId());
-        }
+        
+        // 从请求头获取企业ID，如果没有提供则使用请求参数中的企业ID
+        Long enterpriseId = EnterpriseContextHolder.getEnterpriseId() != null
+            ? EnterpriseContextHolder.getEnterprise().getEnterpriseId()
+            : request.getCompanyId();
         if (StringUtils.hasText(request.getCompanyCode())) {
             queryWrapper.eq(Template::getCompanyCode, request.getCompanyCode());
         }
@@ -202,11 +206,9 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateMapper, Template> i
         // 只查询启用的模板
         queryWrapper.eq(Template::getStatus, 1);
 
-        // 根据企业ID过滤
-        if (companyId != null) {
-            queryWrapper.eq(Template::getCompanyId, companyId);
-        }
-
+        // 根据企业ID过滤，优先使用请求头中的企业ID
+        EnterpriseContextHolder.getEnterprise();
+        Long enterpriseId = EnterpriseContextHolder.getEnterprise().getEnterpriseId();
         // 按创建时间倒序
         queryWrapper.orderByDesc(Template::getCreateTime);
 

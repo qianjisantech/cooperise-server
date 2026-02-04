@@ -31,7 +31,7 @@ Authorization: Bearer {{token}}
 {
   "name": "项目模板",
   "description": "用于项目管理的模板",
-  "company_id": 1,
+  "": 1,
   "company_code": "COMP001",
   "company_name": "示例公司",
   "status": 1,
@@ -47,7 +47,7 @@ Authorization: Bearer {{token}}
   "name": "项目模板（已更新）",
   "description": "用于项目管理的模板（已更新）",
   "status": 1,
-  "company_id": 1,
+  "": 1,
   "company_code": "COMP001",
   "company_name": "示例公司",
   "isDefault": false

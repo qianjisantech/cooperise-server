@@ -1,4 +1,4 @@
-package com.qianjisan.auth.request;
+package com.qianjisan.common.reuqest;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

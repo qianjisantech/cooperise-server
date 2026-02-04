@@ -43,18 +43,18 @@ public class UserProfileVO implements Serializable {
     /**
      * 当前用户所属企业列表
      */
-    private List<UserCompanyVo> companies;
+    private List<UserEnterpriseVo> enterprises;
 
 
     @Data
-    public static class UserCompanyVo implements Serializable {
+    public static class UserEnterpriseVo implements Serializable {
 
 
         private Long id;
 
-        private String companyName;
+        private String name;
 
-        private String companyCode;
+        private String code;
 
         private Boolean isDefault;
     }
